@@ -1,0 +1,117 @@
+.formMainCont {
+  display: flexbox;
+  justify-content: center;
+  width: 100%;
+}
+
+.formNameCont {
+  display: flex;
+  justify-content: center;
+  margin: 20px 10%;
+  margin-bottom: 30px;
+}
+
+.formNameCont input {
+  /* display: flex;
+    justify-content: center; */
+  /* margin: 20px 10%; */
+  font-size: 1.6rem;
+  font-weight: bold;
+  height: 40px;
+  outline: none;
+  border: none;
+
+  border-bottom: 3px solid greenyellow;
+  padding: 25px;
+}
+
+/* .formNameCont input:focus {
+  border: 3px solid greenyellow;
+} */
+
+.queInput {
+  display: inline-block;
+  width: 95%;
+  height: 40px;
+  padding: 20px;
+  outline: none;
+  border: 1px solid grey;
+  font-size: 1.3rem;
+}
+.btn {
+  margin: 2px 5px;
+}
+
+.queCont {
+  /* border-top: 10px solid rgb(199, 134, 59); */
+  /* background-color: rgb(194, 186, 201); */
+  border-radius: 10px;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 40px 0;
+  box-shadow: grey -2px 4px 15px;
+}
+
+.dropdownQue {
+  width: 100%;
+
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 0;
+  margin-bottom: 20px;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.optionsCont {
+  height: 30px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* .optionsIcon {
+  height: 30px;
+} */
+
+.optionInput {
+  display: inline-block;
+  width: 50%;
+  height: 25px;
+  padding: 15px;
+  outline: none;
+  font-size: 1rem;
+  margin: 0 10px;
+  border: white 1px solid;
+  border-bottom: grey 1px solid;
+}
+.optionInput:focus {
+  border-bottom-color: rgb(252, 145, 74);
+}
+
+.addOption {
+  background-color: rgb(125, 168, 233);
+  width: fit-content;
+
+  margin: 10px auto;
+  margin-top: 20px;
+}
+.addOption:hover {
+  background-color: rgb(106, 149, 212);
+}
+.addOption:focus {
+  background-color: rgb(106, 149, 212);
+}
+
+.queTypeCont {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 18px;
+  width: 12%;
+  min-width: 130px;
+  top: 260px;
+}

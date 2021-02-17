@@ -1,0 +1,31 @@
+nav {
+  color: white;
+  border: rgb(35, 66, 95) solid 2px;
+  background-color: rgb(81, 105, 128);
+  padding: 10px 50px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+#siteName {
+  font-size: 3rem;
+  margin-left: 7%;
+}
+
+.navBarBtn {
+  background-color: burlywood;
+  margin: 0px 10px;
+  font-size: 1.2rem;
+  padding: 4px 10px;
+  border-radius: 7px;
+  border: 2px solid rgb(255, 255, 255);
+}
+.navBarBtn:hover {
+  background-color: burlywood;
+  border: 2px solid grey;
+}
+.navBarBtnCont {
+  position: absolute;
+  right: 60px;
+}
