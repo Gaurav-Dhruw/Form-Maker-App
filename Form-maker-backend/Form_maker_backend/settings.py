@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
-    'formmaker.apps.FormmakerConfig'
+    'formmaker.apps.FormmakerConfig',
 ]
 
 MIDDLEWARE = [
