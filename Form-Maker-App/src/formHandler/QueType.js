@@ -1,5 +1,5 @@
 import React from "react";
-import "../test.css";
+// import "../test.css";
 
 import { queAction, queType } from "../actions/action";
 import { connect } from "react-redux";
