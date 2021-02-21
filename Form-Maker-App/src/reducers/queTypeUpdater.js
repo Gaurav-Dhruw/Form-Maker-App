@@ -40,6 +40,13 @@ export const queTypeUpdater = (
       delete updatedQue[action.questionNo]
       return { ...state, [action.formID]: { ...updatedQue } };
 
+    case "email":
+      return { ...state, [action.formID]: { ...state[action.formID], [action.questionNo]: action.type } };
+
+      case "tel":
+        return { ...state, [action.formID]: { ...state[action.formID], [action.questionNo]: action.type } };
+  
+
 
     default:
       return state;

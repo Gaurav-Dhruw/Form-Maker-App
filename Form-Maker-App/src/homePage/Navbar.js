@@ -9,7 +9,7 @@ export default class Navbar extends React.Component {
     render() {
         return (
             <nav className="navBar">
-                <span id="siteName">Form Maker</span>
+                <span id="siteName">Form Control</span>
                 <span className="navBarBtnCont">
                     <span className="navBarBtn">About</span>
                     <span className="navBarBtn">Contact Us</span>

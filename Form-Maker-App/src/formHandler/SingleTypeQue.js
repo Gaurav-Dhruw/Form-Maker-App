@@ -163,7 +163,7 @@ class SingleTypeQue extends React.Component {
                 <div class="form-check optionsCont" key={data} id={data}>
                     <input class="form-check-input optionsIcon" type="radio" name="flexRadioDefault" />
 
-                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn btn-outline-warning">X</button>
+                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn btn-outline-warning optionCancelBtn ">&#x2715;</button>
 
                 </div>
 
@@ -178,12 +178,12 @@ class SingleTypeQue extends React.Component {
 
         console.log('queData', queData)
         return (<Fragment>
-            <div>Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
+            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
             </div>
 
 
             {options}
-            <button onClick={this.addOption} class="btn btn-primary addOption">add option</button>
+            <button onClick={this.addOption} class="btn btn-primary addOption">Add Option</button>
         </Fragment>
 
         );

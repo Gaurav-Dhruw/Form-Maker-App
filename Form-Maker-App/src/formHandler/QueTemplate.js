@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import MultiTypeQue from "./MultiTypeQue";
 import SingleTypeQue from "./SingleTypeQue";
 import ParaTypeQue from "./ParaTypeQue";
+import AdditionalTypeQue from "./AdditionalTypeQue.js";
 
 import { queType, removeQue } from "../actions/action";
 
@@ -57,32 +58,35 @@ class QueTemplate extends React.Component {
     console.log('inside QT', this.props.queTypeUpdater)
     let formKeys = Object.keys(this.props.queTypeUpdater);
     console.log('formKeys', formKeys)
-
-
+    
+    
     let que = formKeys.map((element, index) => {
       console.log('object', (this.props.formID == parseInt(element)))
       if (this.props.formID == parseInt(element)) {
         let queKeys = Object.keys(this.props.queTypeUpdater[element]);
         console.log('INSIDE IF')
-
+        
         return queKeys.map((elm, ind) => {
-
+          let regex= new RegExp(this.props.queTypeUpdater[element][parseInt(elm)],"g")
+          
           return (
             <div className="queCont" key={ind}>
               <div className="dropdownQue">
                 <button type="button" class="btn btn-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                  Change Question Type</button>
+                  Change Type</button>
 
                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                   <li><a className="dropdown-item" name="text" value="text" id={parseInt(elm)} onClick={this.handleQueInversion}>Paragraph</a></li>
 
                   <li><a className="dropdown-item" name="radio" value="radio" id={parseInt(elm)} onClick={this.handleQueInversion}>Single Option</a></li>
 
-                  <li><a className="dropdown-item" name="checkbox" value="checkbox" id={parseInt(elm)} onClick={this.handleQueInversion}>Multi Option</a></li>
+                  <li><a className="dropdown-item" name="checkbox" value="checkbox" id={parseInt(elm)} onClick={this.handleQueInversion}>Multiple Option</a></li>
+                  <li><a className="dropdown-item" name="email" value="email" id={parseInt(elm)} onClick={this.handleQueInversion}>Email</a></li>
+                  <li><a className="dropdown-item" name="tel" value="tel" id={parseInt(elm)} onClick={this.handleQueInversion}>Phone No.</a></li>
 
                 </ul>
-                <button id={parseInt(elm)} onClick={this.removeQuestion} class="btn btn-danger">
-                  Remove Question
+                <button id={parseInt(elm)} onClick={this.removeQuestion} class="btn btn-danger queCross">
+                &#x2715;
               </button>
               </div>
               {
@@ -95,6 +99,9 @@ class QueTemplate extends React.Component {
 
               {
                 this.props.queTypeUpdater[element][parseInt(elm)] == "checkbox" ? <MultiTypeQue formID={this.props.formID} queNo={parseInt(elm)} /> : null
+              }
+              {
+                regex.test("emailtel") ? <AdditionalTypeQue formID={this.props.formID} queNo={parseInt(elm)} Type={this.props.queTypeUpdater[element][parseInt(elm)]}/> : null
               }
               {/* 
               <select id={parseInt(elm)} onChange={this.handleQueInversion} >
@@ -123,7 +130,7 @@ class QueTemplate extends React.Component {
 
 
 
-    return <div>{que}</div>;
+    return <div className="allQueCont">{que}</div>;
   }
 
 

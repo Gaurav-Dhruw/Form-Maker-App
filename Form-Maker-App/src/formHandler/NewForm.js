@@ -4,8 +4,8 @@ import QueType from "./QueType";
 import { connect } from "react-redux";
 import { formIdAction } from "../actions/action";
 import "../css/queStyle.css"
-import FormGeneration from "../generatedForm/FormGeneration";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import FormGeneration from "../generatedForm/FormGeneration";
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class NewForm extends React.Component {
   constructor(props) {
@@ -33,22 +33,22 @@ class NewForm extends React.Component {
 
 
     return (<Fragment>
-      <Router>
-        <Switch>
-          <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route>
+      {/* <Router>
+        <Switch> */}
+          {/* <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route> */}
 
 
 
-          <Route path={this.props.formpath}>
+         
             <div className="formNameCont"><input id={this.props.formID} defaultValue={this.props.formTitle} onChange={this.changeFormName}></input></div>
-            <hr></hr>
+            
 
             <QueTemplate formID={this.props.formID}></QueTemplate>
             <QueType formID={this.props.formID} />
-            <div><Link to={`${this.props.formPath}/form`}> Generate Form</Link></div>
-          </Route>
-        </Switch>
-      </Router>
+            <div className="generateBtn">Generate Form</div>
+          
+        {/* </Switch>
+      </Router> */}
     </Fragment>
 
 
