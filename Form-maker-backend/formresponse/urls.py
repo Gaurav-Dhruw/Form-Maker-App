@@ -3,5 +3,5 @@ from .views import FormResponse
 
 
 urlpatterns = [
-    path('', FormResponse, name="formresponse"), 
+    path('<uuid:url_id>', FormResponse, name="formresponse"), 
 ]
