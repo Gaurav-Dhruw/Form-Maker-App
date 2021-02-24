@@ -11,5 +11,5 @@ router.register(r'optionlist', OptionListViewset)
 
 
 urlpatterns = [
-    path('form_api/', include(router.urls)), 
+    path('', include(router.urls)), 
 ]

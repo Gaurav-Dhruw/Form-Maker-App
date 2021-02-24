@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Control</title>
+    <link rel="stylesheet" href="{% static 'css/form_response.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+    <nav class="navBar">
+        <span id="siteName">Form Control</span>
+        <div class="navBarBtnCont">
+            <span class="navBarBtn">About</span>
+            
+        </div>
+
+    </nav>
+
+    <form>
+        <div class="mainCont">
+            <div class="formMainCont">
+                <!-- Form Title -->
+                <div class="formNameCont"><span class="formName">Form Title</span></div>
+
+                <!-- all questions all are inside this -->
+                <div class="allQueCont">
+                    <!-- Paragraph Type -->
+                    <div class="queCont">
+
+
+                        <div class="questionCont">Question will be displaed here???Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Tempora, quaerat? ducimus.</div>
+                        <input class=" answerCont" type="text" />
+
+                    </div>
+
+                    <!-- Single option Type -->
+                    <div class="queCont">
+
+                        <div class="questionCont"> Question will be displayed herer like tthe rest???</div>
+
+                        <!-- single/one whole Option container start -->
+                        <div class="form-check optionsCont">
+                            <input class="form-check-input optionsIcon" type="radio" name="flexRadioDefault" />
+
+                            <div class="optionInput">Option willl be here </div>
+
+                        </div>
+                        <!-- single/one whole Option container end -->
+
+
+
+
+                    </div>
+
+
+                    <!-- Multi Option type -->
+                    <div class="queCont">
+
+                        <div class="questionCont"> Question will be displayed herer like tthe rest???</div>
+
+                        <div class="form-check optionsCont">
+                            <input class="form-check-input optionsIcon" type="checkbox" name="flexRadioDefault" />
+
+                            <div class="optionInput">Option willl be here </div>
+
+                        </div>
+                    </div>
+                    <div class="queCont">
+                        <div class="addQueCont">Phone no:<input type="tel" class="addAnsCont phoneNo">
+                        </input>
+                        </div>
+                        
+                    </div>
+                    <div class="queCont">
+                        <div class="addQueCont">email:<input type="email" class="addAnsCont email">
+                        </input>
+                        </div>
+                        
+
+
+
+                    </div>
+
+                    <!-- Submit Butoon -->
+                    <div class="submitBtnCont"><button type="submit" class="btn btn-primary shadow-none">Submit</button><div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
