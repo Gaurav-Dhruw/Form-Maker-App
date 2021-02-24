@@ -51,11 +51,11 @@ class AdditionlTypeQue extends React.Component{
 
         return (<Fragment>
             {this.props.Type=="email"?<Fragment>
-            <div className="questionCont">email:<div className="answerCont">example@gmail.com</div></div>
+            <div className="addQueCont"> &nbsp;&nbsp;&nbsp;  email:<div className="addAnsCont">example@gmail.com</div></div>
             
             </Fragment>:null}
-            {this.props.Type=="tel"?<Fragment><div></div>
-            <div className="questionCont">phone no:<div className="answerCont" >9000800055</div></div>
+            {this.props.Type=="tel"?<Fragment>
+            <div className="addQueCont">&nbsp;&nbsp;&nbsp;   phone no:<div className="addAnsCont" >9000800055</div></div>
             </Fragment>:null}
         </Fragment>)
 
@@ -80,3 +80,8 @@ const mapDispatchtoProps = (dispatch) => {
 }
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(AdditionlTypeQue);
+
+
+
+
+            

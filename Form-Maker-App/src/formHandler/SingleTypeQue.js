@@ -163,7 +163,7 @@ class SingleTypeQue extends React.Component {
                 <div class="form-check optionsCont" key={data} id={data}>
                     <input class="form-check-input optionsIcon" type="radio" name="flexRadioDefault" />
 
-                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn btn-outline-warning optionCancelBtn ">&#x2715;</button>
+                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn ">&#x2715;</button>
 
                 </div>
 
@@ -183,7 +183,7 @@ class SingleTypeQue extends React.Component {
 
 
             {options}
-            <button onClick={this.addOption} class="btn btn-primary addOption">Add Option</button>
+            <button onClick={this.addOption} class="btn btn-primary shadow-none addOption">Add Option</button>
         </Fragment>
 
         );
@@ -207,3 +207,6 @@ const mapDispatchtoProps = (dispatch) => {
 }
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(SingleTypeQue);
+
+
+

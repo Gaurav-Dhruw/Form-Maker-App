@@ -3,6 +3,10 @@
   flex-wrap: wrap;
   padding: 50px 200px;
 }
+/* #root {
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
+} */
 
 .plusIcon::before{
   font-size: 2.5rem;
@@ -101,3 +105,36 @@
 #deleteBtn::after {
   content: none;
 }
+
+
+@media(max-width:1044px) {
+  .mainCont {
+    padding: 50px 100px;
+  }
+}
+
+@media(max-width:870px) {
+  .mainCont {
+    padding: 50px 0px;
+
+  }
+
+}
+
+@media(max-width:700px) {
+
+
+
+
+
+
+
+  .mainCont {
+    padding: 50px 0px;
+  }
+
+ 
+
+}
+
+

@@ -158,7 +158,7 @@ class MultiTypeQue extends React.Component {
             return <Fragment>
                 <div key={data} id={data} class="form-check optionsCont">
                     <input class="form-check-input optionsIcon" type="checkbox" value="" />
-                    <input type="text" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn btn-outline-warning optionCancelBtn">&#x2715;</button>
+                    <input type="text" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn">&#x2715;</button>
 
                     {/* <input type="checkbox" name="option" ></input> */}
                 </div>
@@ -176,7 +176,7 @@ class MultiTypeQue extends React.Component {
 
 
             {options}
-            <button onClick={this.addOption} class="btn btn-primary addOption">Add Option</button>
+            <button onClick={this.addOption} class="btn btn-primary shadow-none addOption">Add Option</button>
         </Fragment>
 
         );

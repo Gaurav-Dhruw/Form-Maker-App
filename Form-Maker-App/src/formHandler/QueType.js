@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 // import "../test.css";
+
 
 import { queAction, queType } from "../actions/action";
 import { connect } from "react-redux";
@@ -46,16 +47,20 @@ class QueType extends React.Component {
 
   }
   render() {
-    return (
+    return (<Fragment>
       <div id="queTypeCont" className="queTypeCont">
 
-        <button value="text" className="btn btn-primary" onClick={this.getQueType} > Paragraph</button>
-        <button value="radio" className="btn btn-primary" onClick={this.getQueType}>Single Option</button>
-        <button value="checkbox" className="btn btn-primary" onClick={this.getQueType}>Multiple Option</button>
-        <button value="email" className="btn btn-primary" onClick={this.getQueType}>Email</button>
-        <button value="tel" className="btn btn-primary" onClick={this.getQueType}> Phone No.</button>
+        <button value="text" className="btn btn-primary shadow-none" onClick={this.getQueType} > Paragraph</button>
+        <button value="radio" className="btn btn-primary shadow-none" onClick={this.getQueType}>Single Option</button>
+        <button value="checkbox" className="btn btn-primary shadow-none" onClick={this.getQueType}>Multiple Option</button>
+        <button value="email" className="btn btn-primary shadow-none" onClick={this.getQueType}>Email</button>
+        <button value="tel" className="btn btn-primary shadow-none" onClick={this.getQueType}> Phone No.</button>
 
       </div>
+
+      <div className="anotherQueTypeCont"> <button value="text" className="btn btn-primary shadow-none" onClick={this.getQueType} >&#x271A; &nbsp; Add</button></div>
+
+      </Fragment>
     );
   }
 }

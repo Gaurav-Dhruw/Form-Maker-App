@@ -1,11 +1,20 @@
-*{
+* {
   font-size: 1rem;
+
+}
+
+#root {
+  background-color: rgb(228, 236, 248);
+  min-height: 100vh;
+  /* overflow: scroll; */
 }
 
 .formMainCont {
   display: flexbox;
   justify-content: center;
   width: 100%;
+
+
 }
 
 .formNameCont {
@@ -13,6 +22,7 @@
   justify-content: center;
   margin: 20px 10%;
   margin-bottom: 30px;
+
 }
 
 .formNameCont input {
@@ -26,7 +36,10 @@
   border: none;
   text-align: center;
   border-bottom: 3px solid #f59833;
+  border-radius: 3px;
   padding: 25px;
+  background-color: transparent;
+  
 }
 
 /* .formNameCont input:focus {
@@ -41,48 +54,63 @@
   outline: none;
   border-radius: 5px;
   border: 1px solid grey;
-  
+
   margin-left: 5px;
 }
+
 .btn {
   margin: 2px 5px;
+
 }
-.btn:focus,.btn:active {
-  box-shadow: none;
+
+.form-check-input {
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+  min-height: 17px;
 }
 
 .queCont {
   /* border-top: 10px solid rgb(199, 134, 59); */
   /* background-color: rgb(194, 186, 201); */
-  width: 90%;
+  width: 80%;
+  background-color: white;
   border-radius: 10px;
   padding: 20px 40px;
   padding-bottom: 50px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 40px 0;
-  box-shadow: grey -2px 4px 15px;
+  margin: 20px 0;
+  box-shadow: grey -1px 2px 5px;
 }
 
 .dropdownQue {
   width: 100%;
-
+  /* font-size: 1rem; */
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   padding: 0;
   margin-bottom: 20px;
-  background-color:transparent;
+  background-color: transparent;
   display: flex;
   justify-content: flex-end;
 }
-.dropdown-menu{
+
+.dropdownQue >.btn {
+
+  padding: 1px 8px;
+}
+
+.dropdown-menu {
   cursor: pointer;
 }
+
 .optionsCont {
   height: 30px;
   margin: 10px;
-  
+  margin-bottom: 5px;
+
   display: flex;
   align-items: center;
   margin-left: 34px;
@@ -96,16 +124,17 @@
 .optionInput {
   display: inline-block;
   width: 100%;
-  
+
   height: 25px;
   padding: 15px;
   outline: none;
-  
+
   font-size: 1rem;
   margin: 0 10px;
   border: white 1px solid;
-  border-bottom: grey 1px solid;
+  border-bottom: rgba(136, 136, 136, 0.510) 1px solid;
 }
+
 .optionInput:focus {
   border-bottom-color: rgb(252, 145, 74);
 }
@@ -113,13 +142,17 @@
 .addOption {
   background-color: rgb(125, 168, 233);
   width: fit-content;
-
+  padding: 3px 10px;
   margin: 0 auto;
-  margin-top: 40px;
+  /* margin-top: 20px; */
+  position: relative;
+  top: 25px
 }
+
 .addOption:hover {
   background-color: rgb(106, 149, 212);
 }
+
 .addOption:focus {
   background-color: rgb(106, 149, 212);
 }
@@ -134,18 +167,18 @@
   top: 260px;
 }
 
-.questionCont{
+.questionCont {
   display: flex;
   /* justify-content: space-evenly; */
   align-items: center;
-  width:80%;
+  width: 80%;
   margin-bottom: 20px;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
-.answerCont{
-  border: 1px solid rgb(145, 92, 175);
-  
+.answerCont {
+  border: 1px solid rgb(136, 136, 136);
+
   margin: 5px 0;
   margin-left: 34px;
   width: 60%;
@@ -154,50 +187,242 @@
   border-radius: 3px;
 }
 
-.optionCancelBtn{
+.addAnsCont {
+  border: 1px solid rgb(136, 136, 136);
+
+
+  margin-left: 34px;
+  width: 60%;
+  padding: 5px 10px;
+  opacity: 0.5;
+  border-radius: 3px;
+
+}
+
+.addQueCont {
+  display: flex;
+  /* justify-content: space-evenly; */
+  align-items: center;
+  width: 80%;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+
+}
+
+.optionCancelBtn {
   border-radius: 20px;
-  color:rgb(128, 128, 128);
+  color: rgb(128, 128, 128);
   font-size: 1.2rem;
-  
+
   border: transparent;
   place-items: center;
-  
- 
+
+
 }
 
-.optionCancelBtn:hover{
+.optionCancelBtn:hover {
   background-color: transparent;
-  color:black
+  color: black
 }
 
-.queCross{
-  font-size: 1.3rem;
+.queCross {
+  font-size: 1.2rem;
   /* border-radius: 100px; */
-  padding:0 9px;
+  padding: 0 9px;
 }
 
 
-.allQueCont{
+.allQueCont {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
+}
+.anotherQueTypeCont{
+  display: none;
 }
 
-.generateBtn{
+
+
+@media(max-width:1044px ) {
+  .queTypeCont{
+    
   position: fixed;
-  bottom:40px;
-  font-size: 1.25rem;
-  right:40px;
-  background-color: rgb(144, 212, 41);
+  left: 5px;
+  width: 12%;
+  min-width: 135px;
+  top: 250px;
+  }
+
+  .queTypeCont .btn{
+    padding:3px 5px;
+    margin:3px 0;
+  }
+
+  .btn{
+    padding: 3px 8px;
+  }
+
   
-  box-shadow: grey -2px 3px 8px;
-  padding :5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.generateBtn:hover{
-  background-color: rgb(136, 202, 37);
+@media(max-width:870px) {
+  .formNameCont input {
+    width:70%;
+  }
+
+  .queTypeCont{
+    display: none;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    left: 0px;
+    top:unset;
+    background-color: rgba(0, 0, 0, 0.404);
+    bottom: 0px;
+    width: 100%;
+    flex-wrap: wrap;
+    /* height: 40px; */
+    /* min-width: 170px; */
+    
+
+  }
+
+  .anotherQueTypeCont{
+    position: fixed;
+    padding: 3px 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.849);
+    display: flex;
+    justify-content: center;
+  }
+  .anotherQueTypeCont  .btn{
+    padding: 2px 10px;
+  }
+ .btn{
+    margin:5px 5px;
+    padding: 3px 8px;
+  }
+  .queTypeCont .btn{
+    padding:3px 5px;
+    margin:5px 5px;
+  }
+
+  .addOption{
+    margin: auto;
+  }
+
+  
+  
+
+}
+
+@media(max-width:700px) {
+
+  .questionCont{
+    width:90%;
+    /* font-size:1rem; */
+  }
+  .optionsCont , .answerCont{
+    width:70%;
+    margin-right: 0;
+    /* font-size: 0.9rem; */
+  }
+  
+  .submitBtnCont {
+    width: 90%
+  }
+
+  .btn{
+    /* font-size: 0.9rem; */
+    
+  }
+
+  /* .queTypeCont .btn{
+    opacity: 0.7;
+  } */
+
+
+
+  .optionsCont{
+    margin-bottom: 0;
+    margin-top: 5px;
+  }
+ 
+
+  .queCont {
+    width: 95%;
+    /* padding: 20px 40px; */
+  }
+  .addQueCont{
+    width:100%;
+  }
+
+  .addAnsCont {
+    min-width: 162px;
+    margin-left: 18px;
+
+  }
+
+  
+
+}
+
+@media(max-width:465px) {
+  
+  .queCont{
+    padding: 20px 20px;
+  padding-bottom: 50px;
+  }
+  .queInput{
+    padding: 0px 5px;
+    height: 30px;
+    width: 98%;
+  }
+
+  .optionCancelBtn{
+    margin: 0;
+  }
+
+
+  .optionInput, .answerCont{
+    padding: 0px 5px;
+    height:25;
+  }
+  
+  .answerCont,.optionsCont{
+    width: 78%;
+    margin-left: 22px;
+    
+
+  }
+
+  .optionsCont{
+    width:86%;
+  }
+
+ 
+
+  .addQueCont{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .addAnsCont {
+    padding: 0px 5px;
+    height:25;
+    margin-top:16px;
+    margin-left: 25pxpx;
+    
+    /* margin-top: 20px;
+    margin-left: 5px;
+    min-width: none;
+    max-width: none;
+    width: 100%; */
+  }
 
 }

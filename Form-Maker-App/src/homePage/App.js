@@ -22,9 +22,7 @@ class App extends React.Component {
     let newIDs = parseInt(formIdsKey[formIdsKey.length - 1]) + 1;
     console.log('newIDs', newIDs)
 
-    // let newarray = this.props.formIDs;
-
-    // newarray.push(newid);
+   
 
     this.props.dispatchFormIDs({
       type: "addNewForm",

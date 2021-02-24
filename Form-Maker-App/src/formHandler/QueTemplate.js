@@ -5,7 +5,7 @@ import MultiTypeQue from "./MultiTypeQue";
 import SingleTypeQue from "./SingleTypeQue";
 import ParaTypeQue from "./ParaTypeQue";
 import AdditionalTypeQue from "./AdditionalTypeQue.js";
-
+// import "../js/jsForStyling"
 import { queType, removeQue } from "../actions/action";
 
 
@@ -16,7 +16,18 @@ class QueTemplate extends React.Component {
     this.handleQueInversion = this.handleQueInversion.bind(this);
     this.removeQuestion = this.removeQuestion.bind(this);
 
+    // this.displayOptions= this.displayOptions.bind(this);
+
+
+
   }
+  
+//  displayOptions(event){
+//      console.log('event.target', event.target.id)
+
+//   // document.querySelector(`#${event.target.id} > .dropdownQue `).style.visibility="hidden";
+
+//  }
 
   handleQueInversion(event) {
     let queNo = event.target.id;
@@ -70,9 +81,9 @@ class QueTemplate extends React.Component {
           let regex= new RegExp(this.props.queTypeUpdater[element][parseInt(elm)],"g")
           
           return (
-            <div className="queCont" key={ind}>
+            <div  id={`queCont${elm}`} className="queCont" key={ind}>
               <div className="dropdownQue">
-                <button type="button" class="btn btn-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                <button type="button" class="btn btn-secondary shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
                   Change Type</button>
 
                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
@@ -85,12 +96,12 @@ class QueTemplate extends React.Component {
                   <li><a className="dropdown-item" name="tel" value="tel" id={parseInt(elm)} onClick={this.handleQueInversion}>Phone No.</a></li>
 
                 </ul>
-                <button id={parseInt(elm)} onClick={this.removeQuestion} class="btn btn-danger queCross">
+                <button id={parseInt(elm)} onClick={this.removeQuestion} class="btn btn-danger queCross shadow-none">
                 &#x2715;
               </button>
               </div>
               {
-                this.props.queTypeUpdater[element][parseInt(elm)] == "text" ? <ParaTypeQue formID={this.props.formID} queNo={parseInt(elm)} /> : null
+                this.props.queTypeUpdater[element][parseInt(elm)] == "text" ? <ParaTypeQue formID={this.props.formID} queNo={parseInt(elm) } /> : null
               }
 
               {
@@ -101,7 +112,7 @@ class QueTemplate extends React.Component {
                 this.props.queTypeUpdater[element][parseInt(elm)] == "checkbox" ? <MultiTypeQue formID={this.props.formID} queNo={parseInt(elm)} /> : null
               }
               {
-                regex.test("emailtel") ? <AdditionalTypeQue formID={this.props.formID} queNo={parseInt(elm)} Type={this.props.queTypeUpdater[element][parseInt(elm)]}/> : null
+                regex.test("emailtel") ? <AdditionalTypeQue formID={this.props.formID} queNo={parseInt(elm)} Type={this.props.queTypeUpdater[element][parseInt(elm)]} /> : null
               }
               {/* 
               <select id={parseInt(elm)} onChange={this.handleQueInversion} >
@@ -130,7 +141,7 @@ class QueTemplate extends React.Component {
 
 
 
-    return <div className="allQueCont">{que}</div>;
+    return <div  className="allQueCont">{que}</div>;
   }
 
 

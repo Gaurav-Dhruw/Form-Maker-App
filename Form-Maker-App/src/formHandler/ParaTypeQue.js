@@ -9,24 +9,8 @@ class ParaTypeQue extends React.Component {
         super(props)
 
         this.handleInfo = this.handleInfo.bind(this);
-
-
-
+        
     }
-    // componentDidMount() {
-    //     if (counter == 0) {
-
-    //         this.props.dispatchQueInfo({
-    //             type: "para",
-    //             question: "Question",
-    //             formID: this.props.formID,
-    //             questionNo: this.props.queNo + 1
-
-    //         });
-    //     }
-
-    // }
-
     handleInfo(event) {
         question = event.target.value;
         console.log('placeholder', question)
@@ -48,7 +32,7 @@ class ParaTypeQue extends React.Component {
     render() {
         let queData = this.props.queHandler[this.props.formID][this.props.queNo];
 
-        return (<Fragment><div className="questionCont">Q. <input className="queInput" type="text" onChange={this.handleInfo} defaultValue={queData.question} /></div>
+        return (<Fragment><div className="questionCont" >Q. <input className="queInput" type="text" onChange={this.handleInfo} defaultValue={queData.question} /></div>
             <div className="answerCont">Answer</div>
         </Fragment>
 

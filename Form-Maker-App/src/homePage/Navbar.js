@@ -10,10 +10,10 @@ export default class Navbar extends React.Component {
         return (
             <nav className="navBar">
                 <span id="siteName">Form Control</span>
-                <span className="navBarBtnCont">
+                <div className="navBarBtnCont">
                     <span className="navBarBtn">About</span>
-                    <span className="navBarBtn">Contact Us</span>
-                </span>
+                    
+                </div>
 
             </nav>
 
