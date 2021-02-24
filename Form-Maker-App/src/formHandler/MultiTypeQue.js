@@ -157,8 +157,8 @@ class MultiTypeQue extends React.Component {
         options = optionsKey.map((data, index) => {
             return <Fragment>
                 <div key={data} id={data} class="form-check optionsCont">
-                    <input class="form-check-input" type="checkbox" value="" />
-                    <input type="text" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn btn-outline-warning">X</button>
+                    <input class="form-check-input optionsIcon" type="checkbox" value="" />
+                    <input type="text" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn">&#x2715;</button>
 
                     {/* <input type="checkbox" name="option" ></input> */}
                 </div>
@@ -171,12 +171,12 @@ class MultiTypeQue extends React.Component {
 
         console.log('queData', queData)
         return (<Fragment>
-            <div>Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
+            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
             </div>
 
 
             {options}
-            <button onClick={this.addOption} class="btn btn-primary addOption">Add Option</button>
+            <button onClick={this.addOption} class="btn btn-primary shadow-none addOption">Add Option</button>
         </Fragment>
 
         );

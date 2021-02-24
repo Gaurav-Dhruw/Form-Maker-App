@@ -1,16 +1,33 @@
-import React, { Fragment } from 'react';
+import React,{Fragment} from 'react';
 import { queAction } from "../actions/action.js";
 import { connect } from "react-redux";
 
 let question, counter = 0;
 
-class ParaTypeQue extends React.Component {
+class AdditionlTypeQue extends React.Component{
+
     constructor(props) {
         super(props)
-
+    
         this.handleInfo = this.handleInfo.bind(this);
-        
+
+
+
     }
+    // componentDidMount() {
+    //     if (counter == 0) {
+
+    //         this.props.dispatchQueInfo({
+    //             type: "para",
+    //             question: "Question",
+    //             formID: this.props.formID,
+    //             questionNo: this.props.queNo + 1
+
+    //         });
+    //     }
+
+    // }
+
     handleInfo(event) {
         question = event.target.value;
         console.log('placeholder', question)
@@ -32,13 +49,19 @@ class ParaTypeQue extends React.Component {
     render() {
         let queData = this.props.queHandler[this.props.formID][this.props.queNo];
 
-        return (<Fragment><div className="questionCont" >Q. <input className="queInput" type="text" onChange={this.handleInfo} defaultValue={queData.question} /></div>
-            <div className="answerCont">Answer</div>
-        </Fragment>
+        return (<Fragment>
+            {this.props.Type=="email"?<Fragment>
+            <div className="addQueCont"> &nbsp;&nbsp;&nbsp;  email:<div className="addAnsCont">example@gmail.com</div></div>
+            
+            </Fragment>:null}
+            {this.props.Type=="tel"?<Fragment>
+            <div className="addQueCont">&nbsp;&nbsp;&nbsp;   phone no:<div className="addAnsCont" >9000800055</div></div>
+            </Fragment>:null}
+        </Fragment>)
 
-        );
-    }
 
+
+}
 }
 
 const mapStatetoProps = (state) => {
@@ -56,4 +79,9 @@ const mapDispatchtoProps = (dispatch) => {
     }
 }
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(ParaTypeQue);
+export default connect(mapStatetoProps, mapDispatchtoProps)(AdditionlTypeQue);
+
+
+
+
+            

@@ -1,0 +1,106 @@
+.controlPanel{
+    display: flex;
+        justify-content: space-between;
+        align-items: center;
+    
+    position: absolute;
+    top:85px;
+    min-height: 40px;
+    padding:20px 60px;
+    left: 0%;
+    /* border-bottom:2px solid rgb(63, 94, 131); */
+    width: 100%;
+    /* display: flex;
+    align-items: center; */
+    /* background-color: rgb(63, 94, 131); */
+
+}
+
+.cntrlPanelBtns{
+    text-decoration: none;
+    color: black;
+    margin: 0px 20px;
+    padding: 2px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    user-select: none;
+}
+
+
+#genformBtn{
+    float:right ;
+}
+
+.active{
+    border-bottom: #f59833 3px solid;
+}
+
+.generateBtn{
+    /* position: fixed;
+    bottom:40px; */
+    /* font-size: 1.2rem; */
+    /* right:40px; */
+    background-color: rgb(144, 212, 41);
+    user-select: none;
+    box-shadow: grey -2px 3px 8px;
+    padding :5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 130px;
+  }
+  
+  .generateBtn:hover{
+    background-color: rgb(136, 202, 37);
+  
+  }
+  .pairCont{
+      display: inline-block;
+  }
+
+  .pairCont a{
+    text-decoration: none;
+    color: black;
+  }
+  .pairCont a:hover, .pairCont:active{
+    text-decoration: none;
+    color: black;
+  }
+
+
+  @media(max-width:700px){
+    .controlPanel{
+        padding:20px 30px;
+        
+        
+    }
+  }
+  @media(max-width:582px){
+    .controlPanel{
+        top:65px;
+    }
+  }
+
+  @media(max-width:480px) {
+
+    .controlPanel{
+        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    
+
+.cntrlPanelBtns {
+    margin:0 5px;
+}
+
+} 
+
+@media(max-width:465px){
+    .controlPanel{
+        top:95px;
+        padding: 20px 10px;
+    }
+}
+

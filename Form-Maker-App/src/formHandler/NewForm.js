@@ -1,16 +1,20 @@
 import React, { Fragment } from "react";
 import QueTemplate from "./QueTemplate";
 import QueType from "./QueType";
+import ControlPanel from "./ControlPanel";
 import { connect } from "react-redux";
-import { formIdAction } from "../actions/action";
-import "../css/queStyle.css"
-import FormGeneration from "../generatedForm/FormGeneration";
+import { formIdAction, queType } from "../actions/action";
+import "../css/queStyle.css";
+import axios from "axios";
+
+import Response from "./Response";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class NewForm extends React.Component {
   constructor(props) {
     super(props);
     this.changeFormName = this.changeFormName.bind(this);
+    this.sendFormDetails = this.sendFormDetails.bind(this);
 
   }
   changeFormName(event) {
@@ -27,6 +31,36 @@ class NewForm extends React.Component {
 
 
   }
+  sendFormDetails() {
+    let formID = this.props.formID
+    axios.post("http://127.0.0.1:8000/form_api/formcreated/", {
+      form_name: this.props.formIDs[formID]
+    });
+
+    let queTypeKeys = Object.keys(this.props.queType[formID]);
+    let allQueDetails = this.props.queHandler[formID];
+
+    queTypeKeys.forEach((element) => {
+
+      let queInfo = allQueDetails[element];
+      // if (this.props.queType[element] = "text") {
+
+      axios.post("http://127.0.0.1:8000/form_api/questionlist/", {
+
+        "question": queInfo.question,
+        "question_type": "ANSWER",
+        "title": this.props.formIDs[formID]
+      })
+
+      // }
+      let emptyObj = {};
+
+
+    })
+
+  }
+
+
 
   render() {
     // console.log('NEwFORM', this.props.queDetails)
@@ -34,20 +68,27 @@ class NewForm extends React.Component {
 
     return (<Fragment>
       <Router>
+          <ControlPanel formPath={this.props.formPath}></ControlPanel>
         <Switch>
-          <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route>
+          {/* <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route> */}
 
+          <Route path={`${this.props.formPath}/response`}>
+            <Response></Response>
+          </Route>
 
-
-          <Route path={this.props.formpath}>
+          <Route path={this.props.formPath}>
             <div className="formNameCont"><input id={this.props.formID} defaultValue={this.props.formTitle} onChange={this.changeFormName}></input></div>
-            <hr></hr>
+
 
             <QueTemplate formID={this.props.formID}></QueTemplate>
             <QueType formID={this.props.formID} />
-            <div><Link to={`${this.props.formPath}/form`}> Generate Form</Link></div>
+
           </Route>
+
+
+
         </Switch>
+          <div className="generateBtn" onClick={this.sendFormDetails}>Generate Form</div>
       </Router>
     </Fragment>
 
@@ -62,11 +103,13 @@ class NewForm extends React.Component {
 //   }
 // }
 
-// const mapStatetoProps = (state) => {
-//   return {
-//     formIDs: state.formHandler
-//   }
-// }
+const mapStatetoProps = (state) => {
+  return {
+    formIDs: state.formHandler.formIDs,
+    queType: state.queTypeUpdater,
+    queHandler: state.queHandler
+  }
+}
 
 const mapDispatchtoProps = (dispatch) => {
   return {
@@ -74,4 +117,4 @@ const mapDispatchtoProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchtoProps)(NewForm);
+export default connect(mapStatetoProps, mapDispatchtoProps)(NewForm);

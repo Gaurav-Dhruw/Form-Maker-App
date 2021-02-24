@@ -22,9 +22,7 @@ class App extends React.Component {
     let newIDs = parseInt(formIdsKey[formIdsKey.length - 1]) + 1;
     console.log('newIDs', newIDs)
 
-    // let newarray = this.props.formIDs;
-
-    // newarray.push(newid);
+   
 
     this.props.dispatchFormIDs({
       type: "addNewForm",
@@ -98,7 +96,7 @@ class App extends React.Component {
 
           <Link className="formLink" key={elm} to={`/newform${elm}`}>
 
-            <span>{formIdsObj[elm]}</span>
+            <span className="formLinkSpan">{formIdsObj[elm]}</span>
           </Link>
         </div>
 
@@ -124,7 +122,7 @@ class App extends React.Component {
               <div className="formLinkCont createForm">
 
                 <Link className="formLink" to={paths}>
-                  <span onClick={this.handleFormPaths}> Create Form</span>
+                  <span onClick={this.handleFormPaths} className="plusIcon">New Form</span>
                 </Link>
               </div>
               {formLink}

@@ -3,6 +3,22 @@
   flex-wrap: wrap;
   padding: 50px 200px;
 }
+/* #root {
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
+} */
+
+.plusIcon::before{
+  font-size: 2.5rem;
+  opacity: 0.15;
+  color: black;
+  text-align: center;
+  content: "\271A";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
 
 .formLinkCont {
   font-size: 1.2rem;
@@ -34,25 +50,32 @@
   max-width: 135px;
   min-height: 90px;
   max-height: 90px;
-  word-wrap: break-word;
+  word-spacing: 2px;
+  
   /* padding: 15px; */
+  
 }
 
-.formLink span {
-  max-height: 89px;
+.formLink .formLinkSpan {
+  max-height: 75px;
   overflow: hidden;
+  max-width: 120px ;
+  word-wrap: break-word;
+  text-align: center;
+  color: rgb(88, 128, 180);
+  
 }
 
 .formLinkOption {
-  display: inline-flex;
+  
   width: 32px;
 
-  align-items: center;
-  overflow: hidden;
+  
+  
   letter-spacing: 3px;
-  text-align: center;
+  place-items: center;
   padding: 0;
-  justify-content: center;
+  
   font-weight: bold;
   border: none;
   position: relative;
@@ -82,3 +105,36 @@
 #deleteBtn::after {
   content: none;
 }
+
+
+@media(max-width:1044px) {
+  .mainCont {
+    padding: 50px 100px;
+  }
+}
+
+@media(max-width:870px) {
+  .mainCont {
+    padding: 50px 0px;
+
+  }
+
+}
+
+@media(max-width:700px) {
+
+
+
+
+
+
+
+  .mainCont {
+    padding: 50px 0px;
+  }
+
+ 
+
+}
+
+

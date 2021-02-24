@@ -9,11 +9,11 @@ export default class Navbar extends React.Component {
     render() {
         return (
             <nav className="navBar">
-                <span id="siteName">Form Maker</span>
-                <span className="navBarBtnCont">
+                <span id="siteName">Form Control</span>
+                <div className="navBarBtnCont">
                     <span className="navBarBtn">About</span>
-                    <span className="navBarBtn">Contact Us</span>
-                </span>
+                    
+                </div>
 
             </nav>
 
