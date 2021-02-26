@@ -20,12 +20,12 @@ class QuestionList(models.Model):
     )
 
     title = models.ForeignKey(FormCreated, on_delete=models.CASCADE)
-    question = models.CharField(max_length=2000)                              ## Temporarily this is primary key whixh must be shifted to q_uuid
+    question = models.CharField(primary_key=True, max_length=2000)                              ## Temporarily this is primary key whixh must be shifted to q_uuid
     question_type = models.CharField(max_length=100, choices=OPTIONS, default="ANSWER")
-    question_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, blank=True)
+    question_id = models.UUIDField(default=uuid.uuid4, auto_created=True, unique=True, blank=True, null=True)
 
     def __str__(self):
-        return str(self.question_id)
+        return str(self.question)
 
 
 class OptionList(models.Model):

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from formmaker.models import FormCreated, QuestionList, OptionList
 from .forms import SubmittedFormResponseForm, SubmittedUserInfoForm
 from django.forms import formset_factory
-import requests as requa
+
 from uuid import UUID
 import re
 
@@ -44,21 +44,12 @@ def FormResponse(request, url_id):          ## here url_id = Form ID
         # print("POSTED", request.POST['name_user'])
         # print("POSTED", request.POST['phoneno'])
         # print("POSTED", request.POST['email'])
-        # j=0
-        # for i in question_list:
-        #     # print(i.question_type)
-        #     # if i.question_type == 'ANSWER':
-        #         # print("hee")
+
+        # for i in range(len(question_list)):
         #     try:
-        #         j+=1
-        #         print(i.question_id)
-        #         print("POSTED", request.POST['answer_t_{}'.format(j)])
+        #         print("POSTED", request.POST['answer_t_{}'.format(i)])
         #     except:
         #         pass
-            
-
-            # else:
-            #     print("PASS")
         # print("POSTED", request.POST[re.match(r'answer_t_')])
 
         print("")
@@ -118,59 +109,8 @@ def FormResponse(request, url_id):          ## here url_id = Form ID
             print("This is valid form")
             submitted_user_info.save()
 
+        
         # submitted_form_response = formset_factory(SubmittedFormResponseForm)
-        # for i in range(1, len(question_list)+1):
-        #     try:
-        #         # print("POSTED", request.POST['answer_t_{}'.format(i)])
-
-        #         submitted_response_answer = {
-        #             "answer_given": request.POST['answer_t_{}'.format(i)],
-        #             # "options_answer_selected": null,
-        #             # "form_id": null,
-        #             # "submitted_user_f_id": null,
-        #             # "question_id": null
-        #         }
-        #         submitted_form_response_answer = SubmittedFormResponseForm()
-        #     except:
-        #         pass
-
-        j=0
-        for i in question_list:
-            # try:
-            j+=1
-            print(i.question_id)
-            print("POSTED", request.POST['answer_t_{}'.format(j)])
-
-            # try:
-            username = request.POST['name_user']
-            userdat = requa.get("http://127.0.0.1:8000/form_submitted_api/submitteduserinfo/{0}".format(username))
-            userdat = userdat.json()
-            print(userdat['form_id'])
-            print(username)
-                
-            # except: 
-            #     print("Error uin userdata")
-            print("hey there")
-            submitted_response_answer = {
-                "answer_given": str(request.POST['answer_t_{}'.format(j)]),
-                "options_answer_selected": None,
-                "form_id": userdat['form_id'],
-                "submitted_user_f_id": str(userdat['name_user']),
-                "question_id": i.question
-            }
-            submitted_form_response_answer = SubmittedFormResponseForm(submitted_response_answer)
-            print("before valid")
-            # if submitted_form_response_answer.is_valid():    
-            #     print("This is valid form")
-            submitted_form_response_answer.save()
-
-
-            r = requa.post('https://httpbin.org/post', data = {'key':'value'})
-
-            print("After valid")
-            # except:
-            #     pass
-
 
         
 
