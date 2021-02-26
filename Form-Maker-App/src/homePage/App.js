@@ -3,9 +3,10 @@ import NewForm from "../formHandler/NewForm.js";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { formIdAction, queAction } from "../actions/action.js";
 import { connect } from 'react-redux';
+import axios from "axios";
 import Navbar from "./Navbar.js";
 import "../css/homePageStyle.css";
-import FormGeneration from "../generatedForm/FormGeneration";
+// import FormGeneration from "../generatedForm/FormGeneration";
 
 
 class App extends React.Component {
@@ -22,13 +23,17 @@ class App extends React.Component {
     let newIDs = parseInt(formIdsKey[formIdsKey.length - 1]) + 1;
     console.log('newIDs', newIDs)
 
+    // let formID = this.props.formID
+    axios.post("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
+      form_name: this.props.formIDs[formIdsKey[formIdsKey.length - 1]]
+    });
    
 
     this.props.dispatchFormIDs({
       type: "addNewForm",
       payload: {
         formID: newIDs,
-        formTitle: "Untitled"
+        formTitle: "Untitled"+`${newIDs}`
       }
     });
     console.log("indise aap between two dispatch", newIDs)
@@ -112,13 +117,13 @@ class App extends React.Component {
     return (
 
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="mainCont">
           <Switch>
 
             {formList}
 
-            <Route path="/">
+            <Route path="/App">
               <div className="formLinkCont createForm">
 
                 <Link className="formLink" to={paths}>

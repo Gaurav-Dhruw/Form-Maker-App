@@ -33,27 +33,59 @@ class NewForm extends React.Component {
   }
   sendFormDetails() {
     let formID = this.props.formID
-    axios.post("http://127.0.0.1:8000/form_api/formcreated/", {
-      form_name: this.props.formIDs[formID]
-    });
+    // axios.put("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
+    //   form_name: this.props.formIDs[formID]
+    // });
+
+
+    let realformID ;
+    axios.get("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/").then(res=>{
+        console.log('res', res.data);
+        res.data.forEach(elm=>{
+          
+          if(elm.form_name===this.props.formIDs[formID]){
+            console.log('relm', elm);
+            realformID=elm.url_key;
+            console.log('realformID', realformID)
+          }
+        })
+    })
+
+    // console.log('realformID', realformID)
+     
+   
 
     let queTypeKeys = Object.keys(this.props.queType[formID]);
     let allQueDetails = this.props.queHandler[formID];
 
-    queTypeKeys.forEach((element) => {
+    queTypeKeys.forEach(async (element) => {
 
       let queInfo = allQueDetails[element];
       // if (this.props.queType[element] = "text") {
 
-      axios.post("http://127.0.0.1:8000/form_api/questionlist/", {
+      console.log('queInfo.question', queInfo.question);
+      console.log('this.props.forIDs[formID]', this.props.formIDs[formID]);
 
+      let userdata= {
         "question": queInfo.question,
         "question_type": "ANSWER",
-        "title": this.props.formIDs[formID]
-      })
+        "title": '05cc82d4-0b84-47b1-b33a-6ec7290b19cf'};
+      
+      const res =  fetch(`https://form-maker-backend.herokuapp.com/form_creation_api/questionlist/`, {
+
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(userdata),
+    })
+
+      // axios.post(`https://form-maker-backend.herokuapp.com/form_creation_api/questionlist/`, {
+        
+      // })
 
       // }
-      let emptyObj = {};
+      // let emptyObj = {};
 
 
     })
