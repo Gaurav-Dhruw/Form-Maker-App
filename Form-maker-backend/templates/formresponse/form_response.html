@@ -25,7 +25,8 @@
 
     </nav>
 
-    <form>
+    <form method='POST'>
+    {% csrf_token %}
         <div class="mainCont">
             <div class="formMainCont">
                 <!-- Form Title -->
@@ -43,7 +44,7 @@
 
 
                         <div class="questionCont">{{ question.question }}</div>
-                        <input class=" answerCont" type="text" />
+                        <input name="answer_t_{{forloop.counter}}" class=" answerCont" type="text" />
 
                     </div>
 
@@ -66,7 +67,8 @@
                                 {% for opt in options %}
                                     {% if forloop.counter > 1 and opt != None%}
 
-                                        <input class="form-check-input optionsIcon" type="radio" name="flexRadioDefault" />
+                                        <input name="radio_opt_{{question.question_id}}" class="form-check-input optionsIcon" type="radio" value="{{opt}}, {{question.question_id}}" />        <!-- name="flexRadioDefault"  -->
+                                        {% comment %} <input name="radio_opt{{forloop.counter}}" id="radio_opt{{forloop.counter}}" value="{{opt}}" class="form-check-input optionsIcon" type="radio"/> {% endcomment %}
 
                                         <div class="optionInput">{{opt}}</div>
 
@@ -102,7 +104,9 @@
                                 {% for opt in options %}
                                     {% if forloop.counter > 1 and opt != None%}
 
-                                        <input class="form-check-input optionsIcon" type="checkbox" name="flexRadioDefault" />
+                                        {% comment %} <input name="checkbox_opt" class="form-check-input optionsIcon" type="checkbox" name="flexRadioDefault" /> {% endcomment %}
+                                        <input name="checkbox_opt_{{question.question_id}}_{{forloop.counter}}" class="form-check-input optionsIcon" type="checkbox" value="{{opt}}, {{question.question_id}}" />
+
 
                                         <div class="optionInput">{{opt}}</div>
 
@@ -124,9 +128,8 @@
                 {% endfor %}
 
 
-
                     <div class="queCont">
-                        <div class="addQueCont">Phone no:<input type="tel" class="addAnsCont phoneNo">
+                        <div class="addQueCont">Name:<input name="name_user" type="text" class="addAnsCont phoneNo">
                         </input>
                         </div>
                         
@@ -135,7 +138,16 @@
 
 
                     <div class="queCont">
-                        <div class="addQueCont">email:<input type="email" class="addAnsCont email">
+                        <div class="addQueCont">Phone no:<input name="phoneno" type="tel" class="addAnsCont phoneNo">
+                        </input>
+                        </div>
+                        
+                    </div>
+
+
+
+                    <div class="queCont">
+                        <div class="addQueCont">email:<input name="email" type="email" class="addAnsCont email">
                         </input>
                         </div>
 

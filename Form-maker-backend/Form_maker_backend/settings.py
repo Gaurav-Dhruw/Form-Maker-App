@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'formmaker.apps.FormmakerConfig',
+    'formresponse.apps.FormresponseConfig',
 ]
 
 MIDDLEWARE = [
