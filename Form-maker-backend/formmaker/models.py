@@ -2,6 +2,8 @@ from django.db import models
 import uuid
 # Create your models here.
 
+
+
 class FormCreated(models.Model):
     form_name = models.CharField(max_length=100)
     url_key = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, blank=True)
@@ -16,10 +18,14 @@ class QuestionList(models.Model):
         ("RADIO","RADIO"),
         ("CHECKBOX","CHECKBOX")
     )
+
     title = models.ForeignKey(FormCreated, on_delete=models.CASCADE)
-    question = models.CharField(max_length=2000)
+    question = models.CharField(max_length=2000)                              ## Temporarily this is primary key whixh must be shifted to q_uuid
     question_type = models.CharField(max_length=100, choices=OPTIONS, default="ANSWER")
-    question_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, blank=True)
+    question_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, blank=True)
+
+    def __str__(self):
+        return str(self.question_id)
 
 
 class OptionList(models.Model):
@@ -34,8 +40,10 @@ class OptionList(models.Model):
     option7 = models.CharField(max_length=1000, blank=True, null=True)
     option8 = models.CharField(max_length=1000, blank=True, null=True)
     option9 = models.CharField(max_length=1000, blank=True, null=True)
-    option10 = models.CharField(max_length=1000, blank=True, null=True)
+    # option10 = models.CharField(max_length=1000, blank=True)
 
+    # def __str__(self):
+    #     return self.question
 
 
 
