@@ -43,10 +43,14 @@ export const queTypeUpdater = (
     case "email":
       return { ...state, [action.formID]: { ...state[action.formID], [action.questionNo]: action.type } };
 
-      case "tel":
+    case "tel":
         return { ...state, [action.formID]: { ...state[action.formID], [action.questionNo]: action.type } };
   
-
+    case "removeForm":
+          console.log('insider removeForm')
+          let updatedState= state;
+          delete updatedState[action.data.formID];
+          return { ...updatedState};
 
     default:
       return state;

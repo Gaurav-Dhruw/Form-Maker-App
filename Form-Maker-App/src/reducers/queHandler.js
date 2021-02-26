@@ -50,7 +50,14 @@ export const queHandler = (state = {
             let updatedQue = state[action.formID];
             delete updatedQue[action.questionNo];
             return { ...state, [action.formID]: { ...updatedQue } };
-        default:
+        
+        case "removeForm":
+            console.log('insider removeForm')
+            let updatedState= state;
+            delete updatedState[action.data.formID];
+            return { ...updatedState};
+        
+            default:
             return state;
     }
 }
