@@ -14,18 +14,21 @@ class FormCreated(models.Model):
 class QuestionList(models.Model):
 
     OPTIONS = (
-        ("ANSWER","ANSWER"),
-        ("RADIO","RADIO"),
-        ("CHECKBOX","CHECKBOX")
+        ("text","text"),
+        ("radio","radio"),
+        ("checkbox","checkbox")
     )
 
     title = models.ForeignKey(FormCreated, on_delete=models.CASCADE)
-    question = models.CharField(primary_key=True, max_length=2000)                              ## Temporarily this is primary key whixh must be shifted to q_uuid
+    question = models.CharField(max_length=2000, unique=False)                              ## Temporarily this is primary key whixh must be shifted to q_uuid
     question_type = models.CharField(max_length=100, choices=OPTIONS, default="ANSWER")
-    question_id = models.UUIDField(default=uuid.uuid4, auto_created=True, unique=True, blank=True, null=True)
+    question_id = models.UUIDField(primary_key=True, default=uuid.uuid4, auto_created=True, blank=True) #  unique=True,
 
     def __str__(self):
         return str(self.question)
+
+    def __repr__(self):
+        return str(self.question_id)
 
 
 class OptionList(models.Model):

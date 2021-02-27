@@ -1,6 +1,6 @@
 from django.db import models
 from formmaker.models import QuestionList
-from django.db.models import JSONField
+from django.contrib.postgres.fields import ArrayField
 import uuid
 
 # Create your models here.
@@ -19,6 +19,7 @@ class SubmittedFormResponse(models.Model):
     question_id = models.ForeignKey("formmaker.QuestionList", on_delete=models.CASCADE)
     answer_given = models.CharField(max_length=20000, null=True)
     # option_answer_selected = models.CharField(max_length=1000)       ## Make it a ArrayField
-    # options_answer_selected = JSONField(blank=True, null=True)
+    options_answer_selected =  ArrayField(models.CharField(max_length=10, blank=True), size=4, null=True)
+
 
 
