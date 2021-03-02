@@ -13,8 +13,7 @@ body{
 
 nav {
     color: white;
-    border-bottom: rgb(35, 66, 95) solid 2px;
-    background-color: rgb(81, 105, 128);
+    background-image: linear-gradient( to right , #185a9d,  #43cea2 );
     padding: 10px 50px;
     display: flex;
     /* justify-content: center; */

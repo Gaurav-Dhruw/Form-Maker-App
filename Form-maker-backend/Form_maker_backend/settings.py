@@ -25,7 +25,7 @@ SECRET_KEY = '=#h=car(^t6#9sjz%4gph0id(32n%9kji0@cp+6(_84v6#bnl$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
+    # 'djoser',
     'corsheaders',
 
     'formmaker.apps.FormmakerConfig',
     'formresponse.apps.FormresponseConfig',
+    # 'auth.apps.AuthConfig',
 ]
 
 MIDDLEWARE = [
@@ -87,25 +89,24 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Form_Maker_1',
-        'USER': 'postgres',
-        'PASSWORD': 'ManishPort',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'd8aaub6564k27n',
-    #     'USER': 'syrpaheylczclo',
-    #     'PASSWORD': 'e074db17e6c62743999a7833c6d4c4d5664953341df91c3fcf4efdd66ce73256',
-    #     'HOST': 'ec2-52-7-168-69.compute-1.amazonaws.com',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'Form-Maker-2',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'ManishPort',
+    #     'HOST': 'localhost',
+    #     'PORT': '5433',
     # }
-}
 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd24b6q2elt58an',
+        'USER': 'mpzlwgoccyinbp',
+        'PASSWORD': '1830494f7bbf416a21aa0b20a2ef34a8b56f72cd9b95c1757cc6a556d5c0ff81',
+        'HOST': 'ec2-3-232-163-23.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 # postgres://USER:@:/NAME
 
 
@@ -166,3 +167,6 @@ STATICFILES_DIRS = [
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"http://localhost:3000/*",
 ]
+
+
+# AUTH_USER_MODEL = 'auth.UserAccount'
