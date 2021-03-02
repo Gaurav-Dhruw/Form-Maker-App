@@ -18,153 +18,179 @@
 <body>
     <nav class="navBar">
         <span id="siteName">Form Control</span>
-        <div class="navBarBtnCont">
+        <!-- <div class="navBarBtnCont">
             <span class="navBarBtn">About</span>
             
-        </div>
+        </div> -->
 
     </nav>
 
-    <form method='POST'>
-    {% csrf_token %}
+    <form name="ToSubmitForm" method='POST'>
+        {% csrf_token %}
         <div class="mainCont">
             <div class="formMainCont">
                 <!-- Form Title -->
                 <div class="formNameCont"><span class="formName">{{form_name}}</span></div>
-
+                {% if form_status %}
                 <!-- all questions all are inside this -->
 
-                <div class="allQueCont">
+                    <div class="allQueCont">
 
-                {% for question in question_list %}
-                    {% if question.question_type == "ANSWER" %}
+                        {% for question in question_list %}
+                        {% if question.question_type == "text" %}
 
-                    <!-- Paragraph Type -->
-                    <div class="queCont">
-
-
-                        <div class="questionCont">{{ question.question }}</div>
-                        <input name="answer_t_{{forloop.counter}}" class=" answerCont" type="text" />
-
-                    </div>
+                        <!-- Paragraph Type -->
+                        <div class="queCont">
 
 
-                    {% elif question.question_type == "RADIO" %}
-                    
-                    <!-- Single option Type -->
-                    <div class="queCont">
+                            <div class="questionCont">{{ question.question }}</div>
+                            <input name="answer_t_{{forloop.counter}}" class=" answerCont" type="text" />
 
-                        <div class="questionCont">{{ question.question }}</div>
+                        </div>
 
-                        <!-- single/one whole Option container start -->
-                        <div class="form-check optionsCont">
-                        {% for options in option_list %}
-                        {% comment %} {% for question in question_list %} {% endcomment %}
-                        {% comment %} <p>{{options}}</p>
-                        <p>{{question.question_id}}</p> {% endcomment %}
 
-                            {% if options.0 == question.question_id %}
+                        {% elif question.question_type == "radio" %}
+
+                        <!-- Single option Type -->
+                        <div class="queCont">
+
+                            <div class="questionCont">{{ question.question }}</div>
+
+                            <!-- single/one whole Option container start -->
+                            <div class="form-check optionsCont">
+                                {% for options in option_list %}
+                                {% comment %} {% for question in question_list %} {% endcomment %}
+                                {% comment %} <p>{{options}}</p>
+                                <p>{{question.question_id}}</p> {% endcomment %}
+
+                                {% if options.0 == question.question_id %}
                                 {% for opt in options %}
-                                    {% if forloop.counter > 1 and opt != None%}
+                                {% if forloop.counter > 1 and opt != None%}
 
-                                        <input name="radio_opt_{{question.question_id}}" class="form-check-input optionsIcon" type="radio" value="{{opt}}, {{question.question_id}}" />        <!-- name="flexRadioDefault"  -->
-                                        {% comment %} <input name="radio_opt{{forloop.counter}}" id="radio_opt{{forloop.counter}}" value="{{opt}}" class="form-check-input optionsIcon" type="radio"/> {% endcomment %}
+                                <input name="radio_opt_{{question.question_id}}" class="form-check-input optionsIcon"
+                                    type="radio" value="{{opt}}, {{question.question_id}}" />
+                                <!-- name="flexRadioDefault"  -->
+                                {% comment %} <input name="radio_opt{{forloop.counter}}" id="radio_opt{{forloop.counter}}"
+                                    value="{{opt}}" class="form-check-input optionsIcon" type="radio" /> {% endcomment %}
 
-                                        <div class="optionInput">{{opt}}</div>
+                                <div class="optionInput">{{opt}}</div>
 
-                                    {% endif %}
+                                {% endif %}
                                 {% endfor %}
-                            {% else %}
-                            {% comment %} <p>Something Wrong</p> {% endcomment %}
-                            {% endif %}
-                        {% comment %} {% endfor %} {% endcomment %}
+                                {% else %}
+                                {% comment %} <p>Something Wrong</p> {% endcomment %}
+                                {% endif %}
+                                {% comment %} {% endfor %} {% endcomment %}
+                                {% endfor %}
+
+
+                            </div>
+                            <!-- single/one whole Option container end -->
+
+                        </div>
+
+
+                        {% elif question.question_type == "checkbox" %}
+
+                        <!-- Multi Option type -->
+                        <div class="queCont">
+
+                            <div class="questionCont">{{ question.question }}</div>
+
+                            <div class="form-check optionsCont">
+                                {% for options in option_list %}
+                                {% comment %} {% for question in question_list %} {% endcomment %}
+                                {% comment %} <p>{{options}}</p>
+                                <p>{{question.question_id}}</p> {% endcomment %}
+
+                                {% if options.0 == question.question_id %}
+                                {% for opt in options %}
+                                {% if forloop.counter > 1 and opt != None%}
+
+                                {% comment %} <input name="checkbox_opt" class="form-check-input optionsIcon"
+                                    type="checkbox" name="flexRadioDefault" /> {% endcomment %}
+                                <input name="checkbox_opt_{{question.question_id}}_{{forloop.counter}}"
+                                    class="form-check-input optionsIcon" type="checkbox"
+                                    value="{{opt}}, {{question.question_id}}" />
+
+
+                                <div class="optionInput">{{opt}}</div>
+
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                {% comment %} <p>Something Wrong</p> {% endcomment %}
+                                {% endif %}
+                                {% comment %} {% endfor %} {% endcomment %}
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+
+                        {% endif %}
+
+
                         {% endfor %}
 
 
-                        </div>
-                        <!-- single/one whole Option container end -->
-
-                    </div>
-
-
-                    {% elif question.question_type == "CHECKBOX" %}
-
-                    <!-- Multi Option type -->
-                    <div class="queCont">
-
-                        <div class="questionCont">{{ question.question }}</div>
-
-                        <div class="form-check optionsCont">
-                        {% for options in option_list %}
-                        {% comment %} {% for question in question_list %} {% endcomment %}
-                        {% comment %} <p>{{options}}</p>
-                        <p>{{question.question_id}}</p> {% endcomment %}
-
-                            {% if options.0 == question.question_id %}
-                                {% for opt in options %}
-                                    {% if forloop.counter > 1 and opt != None%}
-
-                                        {% comment %} <input name="checkbox_opt" class="form-check-input optionsIcon" type="checkbox" name="flexRadioDefault" /> {% endcomment %}
-                                        <input name="checkbox_opt_{{question.question_id}}_{{forloop.counter}}" class="form-check-input optionsIcon" type="checkbox" value="{{opt}}, {{question.question_id}}" />
-
-
-                                        <div class="optionInput">{{opt}}</div>
-
-                                    {% endif %}
-                                {% endfor %}
-                            {% else %}
-                            {% comment %} <p>Something Wrong</p> {% endcomment %}
-                            {% endif %}
-                        {% comment %} {% endfor %} {% endcomment %}
-                        {% endfor %}
-                            
+                        <div class="queCont">
+                            <div class="addQueCont">Name:<input id="NameImp" name="name_user" type="text"
+                                    class="addAnsCont email">
+                                </input>
+                            </div>
 
                         </div>
-                    </div>
-
-                    {% endif %}
 
 
-                {% endfor %}
 
+                        <div class="queCont">
+                            <div class="addQueCont">Phone no:<input name="phoneno" type="tel" class="addAnsCont phoneNo">
+                                </input>
+                            </div>
 
-                    <div class="queCont">
-                        <div class="addQueCont">Name:<input name="name_user" type="text" class="addAnsCont phoneNo">
-                        </input>
                         </div>
-                        
-                    </div>
 
 
 
-                    <div class="queCont">
-                        <div class="addQueCont">Phone no:<input name="phoneno" type="tel" class="addAnsCont phoneNo">
-                        </input>
+                        <div class="queCont">
+                            <div class="addQueCont">email:<input name="email" type="email" class="addAnsCont email">
+                                </input>
+                            </div>
+
                         </div>
-                        
-                    </div>
 
+                        <!-- Submit Butoon -->
+                        <div class="submitBtnCont"><button onclick="validateForm()" type="submit"
+                                class="btn btn-primary shadow-none">Submit</button>
+                            <div>
+                            </div>
 
-
-                    <div class="queCont">
-                        <div class="addQueCont">email:<input name="email" type="email" class="addAnsCont email">
-                        </input>
                         </div>
 
                     </div>
+                {% else %}
+                <div style="margin-top: 40px;width: 100%; text-align: center;">This form is no longer accepting responses 🤡. </div> 
 
-                    <!-- Submit Butoon -->
-                    <div class="submitBtnCont"><button type="submit" class="btn btn-primary shadow-none">Submit</button><div>
-                </div>
+                {% endif %}   
 
             </div>
-
         </div>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
+
+    <script>
+        function validateForm() {
+            var x = document.getElementById("NameImp").value
+            console.log(x)
+            if (x == "") {
+                alert("Name must be filled out");
+            }
+        }
+    </script>
 
 </body>
 

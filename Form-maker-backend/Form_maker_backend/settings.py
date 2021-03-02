@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,7 @@ SECRET_KEY = '=#h=car(^t6#9sjz%4gph0id(32n%9kji0@cp+6(_84v6#bnl$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -36,16 +36,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
+    # 'djoser',
     'corsheaders',
 
     'formmaker.apps.FormmakerConfig',
     'formresponse.apps.FormresponseConfig',
+    # 'auth.apps.AuthConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,22 +84,34 @@ WSGI_APPLICATION = 'Form_maker_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'Form_Maker',
+    #     'NAME': 'Form-Maker-2',
     #     'USER': 'postgres',
     #     'PASSWORD': 'ManishPort',
     #     'HOST': 'localhost',
     #     'PORT': '5433',
     # }
 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd24b6q2elt58an',
+        'USER': 'mpzlwgoccyinbp',
+        'PASSWORD': '1830494f7bbf416a21aa0b20a2ef34a8b56f72cd9b95c1757cc6a556d5c0ff81',
+        'HOST': 'ec2-3-232-163-23.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
 }
+# postgres://USER:@:/NAME
 
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -133,6 +149,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+WHITENOISE_USE_FINDERS = True
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -144,3 +167,6 @@ STATICFILES_DIRS = [
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"http://localhost:3000/*",
 ]
+
+
+# AUTH_USER_MODEL = 'auth.UserAccount'
