@@ -46,8 +46,8 @@ class OptionList(models.Model):
     option9 = models.CharField(max_length=1000, blank=True, null=True)
     # option10 = models.CharField(max_length=1000, blank=True)
 
-    # def __str__(self):
-    #     return self.question
+    def __str__(self):
+        return self.question.question
 
 
 

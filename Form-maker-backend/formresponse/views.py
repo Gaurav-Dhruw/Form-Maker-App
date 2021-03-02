@@ -1,6 +1,7 @@
 import json
 from django.shortcuts import redirect, render
 from formmaker.models import FormCreated, QuestionList, OptionList
+from .models import SubmittedUserInfo
 from .forms import SubmittedFormResponseForm, SubmittedUserInfoForm
 from django.forms import formset_factory
 import requests as requa
@@ -8,8 +9,6 @@ from uuid import UUID
 import re
 
 # Create your views here.
-
-
 def FormResponse(request, url_id):  # here url_id = Form ID
     form_name = FormCreated.objects.get(url_key=url_id)
     question_list = QuestionList.objects.all().filter(title=url_id)
@@ -41,6 +40,8 @@ def FormResponse(request, url_id):  # here url_id = Form ID
             print("This is valid form")
             submitted_user_info.save()
 
+        print("SUbmit user data", submitted_user_info)
+
         j = 0
         for i in question_list:
             radio_selected = request.POST.get(
@@ -49,13 +50,26 @@ def FormResponse(request, url_id):  # here url_id = Form ID
                 radio_selected = radio_selected.split(',')[0]
             except:
                 pass
-
+            
             username = request.POST['name_user']
-            # userdat = requa.get(
-            #     "http://127.0.0.1:8000/form_submitted_api/submitteduserinfo/{0}".format(username))
-            userdat = requa.get(
-                "https://form-maker-backend.herokuapp.com/form_submitted_api/submitteduserinfo/{0}".format(username))
+            user_data = SubmittedUserInfo.objects.all().filter(form_id=form_name.url_key).filter(name_user=username)
+            print(user_data[0].submitted_user_id)
+
+            ## I know the following is unecessary as user_id can be directly taken from the output of the models but let it be for now.
+
+            try:
+                userdat = requa.get(
+                    "http://127.0.0.1:8000/form_submitted_api/submitteduserinfo/{0}".format(user_data.submitted_user_id))
+                # userdat = requa.get(
+                #     "https://form-maker-backend.herokuapp.com/form_submitted_api/submitteduserinfo/{0}".format(username))
+            except:
+                userdat = requa.get(
+                    "http://127.0.0.1:8000/form_submitted_api/submitteduserinfo/{0}".format(user_data[0].submitted_user_id))
+                # userdat = requa.get(
+                #     "https://form-maker-backend.herokuapp.com/form_submitted_api/submitteduserinfo/{0}".format(username))
+
             userdat = userdat.json()
+            print(userdat)
 
             j += 1
             if i.question_type == "text":
@@ -64,14 +78,14 @@ def FormResponse(request, url_id):  # here url_id = Form ID
                         "answer_given": str(request.POST['answer_t_{}'.format(j)]),
                         "options_answer_selected": None,
                         "form_id": userdat['form_id'],
-                        "submitted_user_f_id": str(userdat['name_user']),
+                        "submitted_user_f_id": userdat['submitted_user_id'],
                         "question_id": i.question_id
                     }
 
-                    # r = requa.post(
-                    #     'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_answer)
                     r = requa.post(
-                        'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_answer)
+                        'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_answer)
+                    # r = requa.post(
+                    #     'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_answer)
 
                     # print(r)
                 except:
@@ -83,44 +97,51 @@ def FormResponse(request, url_id):  # here url_id = Form ID
                         "answer_given": None,
                         "options_answer_selected": str(radio_selected),
                         "form_id": userdat['form_id'],
-                        "submitted_user_f_id": userdat['name_user'],
+                        "submitted_user_f_id": userdat['submitted_user_id'],
                         "question_id": i.question_id
                     }
-                    # r = requa.post(
-                    #     'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_radio)
+                    print(submitted_response_radio)
                     r = requa.post(
-                        'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_radio)
-
+                        'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_radio)
+                    # r = requa.post(
+                    #     'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_radio)
+                    print("radio", r)
                 except:
                     pass
 
             elif i.question_type == "checkbox":
-                try:
-                    arraist = []
-                    for iii in range(9):
-                        arraist.append(str(request.POST.get(
-                            'checkbox_opt_{0}_{1}'.format(i.question_id, iii))).split(',')[0])
-                    arraist2 = []
-                    for kk in arraist:
-                        if kk != 'None':
-                            arraist2.append(kk)
+                print(i.question)
+                # try:
+                arraist = []
+                for iii in range(9):
+                    arraist.append(str(request.POST.get('checkbox_opt_{0}_{1}'.format(i.question_id, iii))).split(',')[0])
+                arraist2 = []
+                for kk in arraist:
+                    if kk != 'None':
+                        arraist2.append(kk)
+                print(arraist2)
+                    
+                print(type(arraist2))
+                print(type(['sdf','asf']))
 
-                    submitted_response_checkbox = {
-                        "answer_given": None,
-                        "options_answer_selected": arraist2,
-                        "form_id": str(userdat['form_id']),
-                        "submitted_user_f_id": str(userdat['name_user']),
-                        "question_id": str(i.question_id)
-                    }
-                    # print(submitted_response_checkbox)
-                    # r = requa.post(
-                    #     'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_checkbox)
+                submitted_response_checkbox = {
+                    "answer_given": None,
+                    "options_answer_selected": arraist2,
+                    "form_id": userdat['form_id'],
+                    "submitted_user_f_id": userdat['submitted_user_id'],
+                    "question_id": str(i.question_id)
+                }
+                # submitted_response_checkbox = json.dumps(submitted_response_checkbox)
 
-                    r = requa.post(
-                        'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_checkbox)
-                    # print(r)
-                except:
-                    pass
+                print(submitted_response_checkbox)
+                r = requa.post(
+                    'http://127.0.0.1:8000/form_submitted_api/submittedformresponse/', data=submitted_response_checkbox)
+
+                # r = requa.post(
+                #     'https://form-maker-backend.herokuapp.com/form_submitted_api/submittedformresponse/', data=submitted_response_checkbox)
+                print(r)
+                # except:
+                #     pass
             else:
                 pass
         if request.POST['name_user']:

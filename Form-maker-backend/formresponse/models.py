@@ -8,10 +8,14 @@ import uuid
 
 class SubmittedUserInfo(models.Model):
     form_id = models.ForeignKey("formmaker.FormCreated", on_delete=models.CASCADE)
-    submitted_user_id = models.UUIDField(default=uuid.uuid4, auto_created=True, blank=True, null=True)
-    name_user = models.CharField(primary_key=True, max_length=200)
+    submitted_user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, auto_created=True, blank=True) # , null=True
+    name_user = models.CharField(max_length=200)
     phone_no = models.CharField(max_length=10)
     email = models.EmailField(blank=True)
+
+    def __str__(self):
+        return self.name_user
+
 
 class SubmittedFormResponse(models.Model):
     form_id = models.ForeignKey("formmaker.FormCreated", on_delete=models.CASCADE)
@@ -21,5 +25,6 @@ class SubmittedFormResponse(models.Model):
     # option_answer_selected = models.CharField(max_length=1000)       ## Make it a ArrayField
     options_answer_selected =  ArrayField(models.CharField(max_length=10, blank=True), size=4, null=True)
 
-
+    # def __str__(self):
+    #     return self.submitted_user_f_id
 
