@@ -14,23 +14,10 @@ class AdditionlTypeQue extends React.Component{
 
 
     }
-    // componentDidMount() {
-    //     if (counter == 0) {
-
-    //         this.props.dispatchQueInfo({
-    //             type: "para",
-    //             question: "Question",
-    //             formID: this.props.formID,
-    //             questionNo: this.props.queNo + 1
-
-    //         });
-    //     }
-
-    // }
+  
 
     handleInfo(event) {
         question = event.target.value;
-        console.log('placeholder', question)
         let queInfo = {
             type: "para",
             payload: {
@@ -65,7 +52,6 @@ class AdditionlTypeQue extends React.Component{
 }
 
 const mapStatetoProps = (state) => {
-    console.log("state inside ParaTYpeQes", state)
     return {
         queHandler: state.queHandler
     }

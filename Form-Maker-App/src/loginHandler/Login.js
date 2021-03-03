@@ -19,8 +19,8 @@ class Login extends React.Component {
 
 
 <div className="loginContainer">
-        <div className="row">
-			<div className="col-md-5 mx-auto box">
+        {/* <div className="row">
+			<div className="col-md-5 mx-auto box"> */}
 			    <div id="first">
 				    <div className="myform form ">
 					    <div className="logo mb-3">
@@ -63,8 +63,8 @@ class Login extends React.Component {
                     </form>
                     </div>
                  
-				</div>
-			</div>
+				{/* </div>
+			</div> */}
 			
             
             

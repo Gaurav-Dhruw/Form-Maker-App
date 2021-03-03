@@ -1,19 +1,26 @@
 nav {
   color: white;
-  border-bottom: rgb(35, 66, 95) solid 2px;
-  background-color: rgb(81, 105, 128);
+  /* background-color: rgb(81, 105, 128); */
   padding: 10px 50px;
   display: flex;
   /* justify-content: center; */
   align-items: center;
   /* background-image: linear-gradient(to bottom right, #000428, #004e92); */
+  background-image: linear-gradient( to right , #185a9d,  #43cea2 );
 }
 
 #siteName {
-  font-size: 2.5rem;
+
+  
   margin-left: 7%;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
+  
+}
+#siteName a{
+  text-decoration: none;
+  color: white;
+  font-size: 2.5rem;
 }
 
 .navBarBtn {
@@ -21,8 +28,10 @@ nav {
   margin: 0px 10px;
   font-size: 1rem;
   padding: 4px 10px;
-  border-radius: 3px;
+  border-radius: 2px;
   cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s ease all;
   
   
 }
@@ -73,6 +82,7 @@ nav {
       flex-direction: column;
       align-items: center;
       /* justify-content: center; */
+        border-bottom: rgba(228, 236, 248, 0.904) solid 2px;
 
       padding: 5px 8px;
 

@@ -8,6 +8,8 @@ import Navbar from "./Navbar.js";
 import "../css/homePageStyle.css";
 // import FormGeneration from "../generatedForm/FormGeneration";
 
+let urlKey;
+
 
 class App extends React.Component {
   constructor(props) {
@@ -21,33 +23,83 @@ class App extends React.Component {
     let formIdsObj = this.props.formIDs;
     let formIdsKey = Object.keys(formIdsObj);
     let newIDs = parseInt(formIdsKey[formIdsKey.length - 1]) + 1;
-    console.log('newIDs', newIDs)
+
+
 
     // let formID = this.props.formID
     axios.post("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
-      form_name: this.props.formIDs[formIdsKey[formIdsKey.length - 1]]
+      form_name: this.props.formIDs[formIdsKey[formIdsKey.length - 1]].formTitle
+    }).then(res => {
+      console.log('res.status', res)
+
+      console.warn("FORM CREATED IN DB")
+      urlKey = res.data.url_key;
+      this.props.dispatchFormIDs({
+        type: "addNewForm",
+        formID: newIDs - 1,
+        payload: {
+
+
+          urlKey
+        }
+      });
+
+      this.props.dispatchGenStatus({
+        type: 'genConfirmation',
+        formID: newIDs - 1,
+        payload: { homePageStatus: false }
+
+      })
+
+    }).catch(err=>{
+
+      console.error("FORM CREATION FAILED IN DB")
+
+      this.props.dispatchGenStatus({
+        type: 'genConfirmation',
+        formID: newIDs - 1,
+        payload: { homePageStatus: true,homePageFailure:true }
+
+      })
+
+      
+
+
     });
-   
+
 
     this.props.dispatchFormIDs({
       type: "addNewForm",
+      formID: newIDs,
       payload: {
-        formID: newIDs,
-        formTitle: "Untitled"+`${newIDs}`
+
+        formTitle: "Untitled" + `${newIDs}`,
+        genStatus: true,
+        popupStatus: false,
+        urlKey: "",
+        loadingStatus: false,
+        failureStatus: false,
+        homePageStatus:true,
+        homePageFailure:false,
       }
     });
-    console.log("indise aap between two dispatch", newIDs)
+
+
+
+
+
+
 
     this.props.dispatchPreFormData({
       // queType: "",
       type: "preUpdate1",
       payload: {
 
-        formID: newIDs - 1,
+        formID: newIDs,
         questionNo: 0,
         data: { question: "Question", options: { 0: "Option" } }
       }
-    })
+    });
 
 
   }
@@ -56,28 +108,32 @@ class App extends React.Component {
   deleteForm(event) {
     let formID = parseInt(event.target.id);
 
+    axios.delete(`https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/${this.props.formIDs[formID].urlKey}`).then(res => {
+      console.log('res.status', res)
+
+    });
+
     this.props.dispatchFormIDs({
       type: "removeForm",
       payload: { formID }
-    })
+    });
+
+
 
   }
   render() {
-    console.log(this.props.formIDs, "inside render");
     let formIdsObj = this.props.formIDs;
     let formIdsKey = Object.keys(formIdsObj);
 
-    let paths = "/newform" + `${formIdsKey[formIdsKey.length - 1]}`;
-    console.log("paths", paths);
-    // let formID = 0;
+    let paths = "/App/newform" + `${formIdsKey[formIdsKey.length - 1]}`;
     let formList = formIdsKey.map((elm) => {
 
       return (
-        <Route key={elm} path={`/newform${elm}`}>
+        <Route key={elm} path={`/App/newform${elm}`}>
 
           <div className="formMainCont" key={elm}>
 
-            <NewForm formID={elm} formTitle={formIdsObj[elm]} formPath={`/newform${elm}`} />
+            <NewForm formID={elm} formPath={`/App/newform${elm}`} />
           </div>
         </Route>
       );
@@ -99,9 +155,9 @@ class App extends React.Component {
             </ul>
           </div>
 
-          <Link className="formLink" key={elm} to={`/newform${elm}`}>
+          <Link className="formLink" key={elm} to={`/App/newform${elm}`}>
 
-            <span className="formLinkSpan">{formIdsObj[elm]}</span>
+            <span className="formLinkSpan">{formIdsObj[elm].formTitle}</span>
           </Link>
         </div>
 
@@ -113,7 +169,6 @@ class App extends React.Component {
 
     formLink = formLink.slice(0, formLink.length - 1);
 
-    // console.log("formList", {formList});
     return (
 
       <Router>
@@ -124,13 +179,15 @@ class App extends React.Component {
             {formList}
 
             <Route path="/App">
-              <div className="formLinkCont createForm">
+              <div className="allFormLinkCont">
+                <div className="formLinkCont createForm">
 
-                <Link className="formLink" to={paths}>
-                  <span onClick={this.handleFormPaths} className="plusIcon">New Form</span>
-                </Link>
+                  <Link className="formLink" to={paths}>
+                    <span onClick={this.handleFormPaths} className="plusIcon">New Form</span>
+                  </Link>
+                </div>
+                {formLink}
               </div>
-              {formLink}
             </Route>
 
           </Switch>
@@ -141,7 +198,6 @@ class App extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-  console.log('state', state)
   return {
     formIDs: state.formHandler.formIDs
 
@@ -149,6 +205,7 @@ const mapStatetoProps = (state) => {
 }
 const mapDispatchtoProps = (dispatch) => {
   return {
+    dispatchGenStatus: (para) => dispatch(formIdAction(para)),
 
     dispatchFormIDs: (para) => dispatch(formIdAction(para)),
     dispatchPreFormData: (para) => dispatch(queAction(para))

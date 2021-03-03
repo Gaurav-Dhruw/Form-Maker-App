@@ -12,6 +12,7 @@ class QueType extends React.Component {
 
     this.getQueType = this.getQueType.bind(this);
   }
+
   getQueType(event) {
 
     console.log('this.props.formID', this.props.formID)
@@ -44,6 +45,9 @@ class QueType extends React.Component {
         questionNo: array + 1
       }
     })
+    // document.querySelector("body").scrollIntoView(false);
+    // window.scrollTo(0,document.querySelector(".allQueCont").scrollHeight);
+
 
   }
   render() {
@@ -53,8 +57,8 @@ class QueType extends React.Component {
         <button value="text" className="btn btn-primary shadow-none" onClick={this.getQueType} > Paragraph</button>
         <button value="radio" className="btn btn-primary shadow-none" onClick={this.getQueType}>Single Option</button>
         <button value="checkbox" className="btn btn-primary shadow-none" onClick={this.getQueType}>Multiple Option</button>
-        <button value="email" className="btn btn-primary shadow-none" onClick={this.getQueType}>Email</button>
-        <button value="tel" className="btn btn-primary shadow-none" onClick={this.getQueType}> Phone No.</button>
+        {/* <button value="email" className="btn btn-primary shadow-none" onClick={this.getQueType}>Email</button>
+        <button value="tel" className="btn btn-primary shadow-none" onClick={this.getQueType}> Phone No.</button> */}
 
       </div>
 

@@ -19,8 +19,8 @@ class Signup extends React.Component {
 
 
 <div className="loginContainer">
-        <div className="row">
-			<div className="col-md-5 mx-auto box">
+        {/* <div className="row">
+			<div className="col-md-5 mx-auto box"> */}
 
                 <div id="second">
 			      <div className="myform form ">
@@ -54,9 +54,9 @@ class Signup extends React.Component {
                             
                         </form>
                      </div>
-			    </div>
+			    {/* </div>
 			    
-			</div>
+			</div> */}
 			
             
             

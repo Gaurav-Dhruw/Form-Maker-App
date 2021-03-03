@@ -7,16 +7,31 @@ import { formIdAction, queType } from "../actions/action";
 import "../css/queStyle.css";
 import axios from "axios";
 
+
 import Response from "./Response";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+
+let urlKey;
 class NewForm extends React.Component {
   constructor(props) {
     super(props);
     this.changeFormName = this.changeFormName.bind(this);
-    this.sendFormDetails = this.sendFormDetails.bind(this);
+    this.retryFormCreation= this.retryFormCreation.bind(this);
+
 
   }
+  componentWillUnmount(){
+    if(this.props.formIDs[this.props.formID].homePageFailure == true){
+
+      this.props.dispatchFormIDs({
+        type: "removeForm",
+        payload: {formID: this.props.formID }
+      });
+    }
+  }
+
+
   changeFormName(event) {
     let newFormName = event.target.value;
     let formID = event.target.id;
@@ -25,107 +40,168 @@ class NewForm extends React.Component {
 
       this.props.dispatchFormTitle({
         type: "addNewForm",
-        payload: { formID, formTitle: newFormName }
+        formID,
+        payload: { formTitle: newFormName }
       });
     }
 
 
   }
-  sendFormDetails() {
-    let formID = this.props.formID
-    // axios.put("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
-    //   form_name: this.props.formIDs[formID]
-    // });
 
+  retryFormCreation(){
 
-    let realformID ;
-    axios.get("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/").then(res=>{
-        console.log('res', res.data);
-        res.data.forEach(elm=>{
-          
-          if(elm.form_name===this.props.formIDs[formID]){
-            console.log('relm', elm);
-            realformID=elm.url_key;
-            console.log('realformID', realformID)
-          }
-        })
+    // let formIdsObj = this.props.formIDs;
+    // let formIdsKey = Object.keys(formIdsObj);
+    // let newIDs = parseInt(formIdsKey[formIdsKey.length - 1]) + 1;
+
+    this.props.dispatchGenStatus({
+      type: 'genConfirmation',
+      formID:this.props.formID,
+      payload: { homePageStatus: true,homePageFailure:false }
+
     })
 
-    // console.log('realformID', realformID)
-     
+
+
+    // let formID = this.props.formID
+    axios.post("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
+      form_name: this.props.formIDs[this.props.formID].formTitle
+    }).then(res => {
+      console.log('res.status', res)
+
+      console.warn("FORM CREATED IN DB")
+      urlKey = res.data.url_key;
+      this.props.dispatchFormIDs({
+        type: "addNewForm",
+        formID: this.props.formID,
+        payload: {
+
+
+          urlKey
+        }
+      });
+
+      this.props.dispatchGenStatus({
+        type: 'genConfirmation',
+        formID: this.props.formID,
+        payload: { homePageStatus: false }
+
+      })
+
+    }).catch(err=>{
+
+      console.error("FORM CREATION FAILED IN DB")
+
+      this.props.dispatchGenStatus({
+        type: 'genConfirmation',
+        formID:this.props.formID,
+        payload: { homePageStatus: true,homePageFailure:true }
+
+      })
+
+      
+
+
+    });
+
+
+ 
+
+
+
+
+
+
    
 
-    let queTypeKeys = Object.keys(this.props.queType[formID]);
-    let allQueDetails = this.props.queHandler[formID];
 
-    queTypeKeys.forEach(async (element) => {
-
-      let queInfo = allQueDetails[element];
-      // if (this.props.queType[element] = "text") {
-
-      console.log('queInfo.question', queInfo.question);
-      console.log('this.props.forIDs[formID]', this.props.formIDs[formID]);
-
-      let userdata= {
-        "question": queInfo.question,
-        "question_type": "ANSWER",
-        "title": '05cc82d4-0b84-47b1-b33a-6ec7290b19cf'};
-      
-      const res =  fetch(`https://form-maker-backend.herokuapp.com/form_creation_api/questionlist/`, {
-
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(userdata),
-    })
-
-      // axios.post(`https://form-maker-backend.herokuapp.com/form_creation_api/questionlist/`, {
-        
-      // })
-
-      // }
-      // let emptyObj = {};
-
-
-    })
 
   }
+
+  
+
+
 
 
 
   render() {
-    // console.log('NEwFORM', this.props.queDetails)
 
 
-    return (<Fragment>
-      <Router>
-          <ControlPanel formPath={this.props.formPath}></ControlPanel>
-        <Switch>
-          {/* <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route> */}
+    let formIDs = this.props.formIDs;
+    let formTitle = formIDs[this.props.formID].formTitle;
 
-          <Route path={`${this.props.formPath}/response`}>
-            <Response></Response>
-          </Route>
+    if (this.props.formIDs[this.props.formID].homePageStatus == true) {
+      if (this.props.formIDs[this.props.formID].homePageFailure == true) {
 
-          <Route path={this.props.formPath}>
-            <div className="formNameCont"><input id={this.props.formID} defaultValue={this.props.formTitle} onChange={this.changeFormName}></input></div>
+        return (
+          <Fragment>
+            <div class="resLoadingCont">
+              <button type="button" class="btn btn-default" aria-label="Left Align" onClick={this.retryFormCreation}>
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true">Try Again</span>
+              </button>
 
-
-            <QueTemplate formID={this.props.formID}></QueTemplate>
-            <QueType formID={this.props.formID} />
-
-          </Route>
+            </div>
 
 
-
-        </Switch>
-          <div className="generateBtn" onClick={this.sendFormDetails}>Generate Form</div>
-      </Router>
-    </Fragment>
+          </Fragment>
+        )
 
 
-    );
+      }
+
+      else {
+
+
+        return (
+          <Fragment>
+            <div class="resLoadingCont">
+              <div class="spinner-border text-primary spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+
+            </div>
+
+
+          </Fragment>
+        )
+      }
+
+    }
+
+    else {
+
+
+      return (<Fragment>
+        <Router>
+          <ControlPanel formPath={this.props.formPath} formID={this.props.formID}></ControlPanel>
+
+          <Switch>
+            {/* <Route path={`${this.props.formPath}/form`}>Opened<FormGeneration formID={this.props.formID}></FormGeneration></Route> */}
+
+            <Route path={`${this.props.formPath}/response`}>
+              <Response formID={this.props.formID}></Response>
+            </Route>
+
+            <Route path={this.props.formPath}>
+              <div className="formNameCont"><input id={this.props.formID} defaultValue={formTitle} onChange={this.changeFormName}></input></div>
+
+
+              <QueTemplate formID={this.props.formID}></QueTemplate>
+              <QueType formID={this.props.formID} />
+
+            </Route>
+
+
+
+          </Switch>
+
+          {/* <div className="generateBtn" onClick={this.sendFormDetails}>Generate Form</div> */}
+        </Router>
+      </Fragment>
+
+
+      );
+    }
   }
 }
 
@@ -139,12 +215,16 @@ const mapStatetoProps = (state) => {
   return {
     formIDs: state.formHandler.formIDs,
     queType: state.queTypeUpdater,
-    queHandler: state.queHandler
+    queHandler: state.queHandler,
+
   }
 }
 
 const mapDispatchtoProps = (dispatch) => {
   return {
+    dispatchGenStatus: (para) => dispatch(formIdAction(para)),
+    dispatchFormIDs: (para) => dispatch(formIdAction(para)),
+
     dispatchFormTitle: (para) => dispatch(formIdAction(para))
   }
 }
