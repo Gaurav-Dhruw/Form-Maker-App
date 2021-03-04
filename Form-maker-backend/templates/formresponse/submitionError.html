@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="{% static 'css/form_response.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navBar">
+        <span id="siteName">Form Control</span>
+        <!-- <div class="navBarBtnCont">
+            <span class="navBarBtn">About</span>
+            
+        </div> -->
+    </nav>
+
+        <div class="mainCont">
+
+            <div class="formMainCont">
+                <div class="allQueCont">
+                <div class="queCont confirmation">
+                    <div  style="font-size:1.8rem; padding:0 10px; border-bottom: 2px orange solid; text-align: center;">Something went wrong!</div>
+                    <div style="margin-top: 40px;width: 100%; text-align: center;">Please submit the form again.</div> 
+                </div>
+            </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    
+</body>
+</html>

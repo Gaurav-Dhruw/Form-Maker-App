@@ -1,0 +1,417 @@
+* {
+    font-size: 1rem;
+    
+}
+body{
+    background-color: rgb(221, 231, 247)  !important;
+    min-height: 100vh !important;
+
+}
+
+
+/* NAV BAR */
+
+nav {
+    color: white;
+    background-image: linear-gradient( to right , #185a9d,  #43cea2 );
+    padding: 10px 50px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#siteName {
+    font-size: 2.5rem;
+    margin-left: 7%;
+    cursor: default;
+    user-select: none;
+}
+
+.navBarBtn {
+    /* background-color: burlywood; */
+    margin: 0px 10px;
+    font-size: 1rem;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    
+}
+
+.navBarBtn:hover {
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.navBarBtnCont {
+    position: absolute;
+    right: 60px;
+    user-select: none;
+}
+
+
+.mainCont {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 200px;
+    /* word-spacing: 0.2em; */
+    letter-spacing: 0.09em;
+    font-family: 'Roboto', sans-serif;
+    
+
+}
+
+
+
+.formMainCont {
+    display: flexbox;
+    justify-content: center;
+    width: 100%;
+    background-color: transparent;
+}
+
+.formNameCont {
+    display: flex ;
+    justify-content: center ;
+    margin: 20px 10%;
+    margin-bottom: 40px;
+}
+
+.formName {
+     display: inline-block;
+      /* justify-content: center;  */
+    /* margin: 20px 10%; */
+    font-size: 1.6rem;
+    font-weight: bold;
+    min-height: 40px;
+    min-width: 50%;
+    border-radius: 3px;
+    text-align: center;
+    border-bottom: 3px solid #f59833;
+    padding: 5px 25px;
+    
+}
+
+/* .formNameCont input:focus {
+    border: 3px solid greenyellow;
+  } */
+
+.queInput {
+    display: inline-block;
+    width: 95%;
+    height: 40px;
+    padding: 20px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid grey;
+
+    margin-left: 5px;
+}
+
+.btn {
+    margin: 2px 5px;
+    
+}
+
+.form-check-input {
+    /* width: 100%;
+    height: 17px; */
+    min-width: 17px;
+    min-height: 17px;
+    border: 1px solid grey !important;
+    
+    margin-top: 0.15em !important;
+
+}
+
+.queCont {
+    background-color: white;
+    /* border-top: 10px solid rgb(199, 134, 59); */
+    /* background-color: rgb(194, 186, 201); */
+    width: 70%;
+    border-radius: 10px;
+    padding: 30px 40px;
+    padding-bottom: 40px;
+
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px 0;
+    /* border: 1px rgb(209, 208, 208) solid; */
+    box-shadow: grey -1px 1px 5px;
+}
+
+.dropdownQue {
+    width: 100%;
+
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 0;
+    margin-bottom: 20px;
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dropdown-menu {
+    cursor: pointer;
+}
+
+.optionsCont {
+    min-height: 30px;
+    margin: 10px auto;
+
+
+
+    display: flex;
+    align-items: center;
+
+    width: 93%;
+}
+
+/* .optionsIcon {
+    height: 30px;
+  } */
+
+.optionInput {
+    display: inline-block;
+    width: 100%;
+
+
+    /* padding: 15px; */
+    outline: none;
+
+    font-size: 1rem;
+    margin: 0 10px;
+
+}
+
+
+
+
+.queTypeCont {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 18px;
+    width: 12%;
+    min-width: 170px;
+    top: 260px;
+}
+
+.questionCont {
+    display: flex;
+    /* justify-content: space-evenly; */
+    align-items: center;
+    width: 95%;
+    /* word-break: break-all; */
+    /* text-align: justify; */
+    margin: auto;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+
+}
+
+.answerCont {
+    border: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    word-spacing: inherit;
+    letter-spacing: inherit;
+    margin: auto;
+    /* margin-left: 34px; */
+    width: 93%;
+    padding: 5px 10px;
+    /* opacity: 0.5; */
+    border-radius: 3px;
+    font-size: 1rem;
+
+    outline: none;
+}
+
+.answerCont:focus {
+    border-bottom: orange 1px solid;
+}
+
+
+
+
+
+
+
+.allQueCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    
+
+}
+
+.addQueCont {
+    
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 30px; */
+    font-size: 1.2rem;
+    width: 95%;
+
+
+}
+
+.addAnsCont {
+    border: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    width: 60%;
+    /* max-width: 80%; */
+    min-width: 230px;
+    
+    word-spacing: inherit;
+    letter-spacing: inherit;
+    margin-left: 30px;
+
+
+    /* margin-left: 34px; */
+
+    padding: 5px 10px;
+    /* opacity: 0.5; */
+    border-radius: 3px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.phoneNo{
+    /* width: 30%; */
+    min-width: 180px;
+    max-width: 180px;
+
+}
+
+
+.addAnsCont:focus {
+    border-bottom: orange 1px solid;
+}
+
+.submitBtnCont{
+    width: 70%;
+    margin-top:30px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirmation{
+    padding-left: 70px; padding-right: 70px;
+}
+
+
+@media(max-width:1044px){
+    .mainCont{
+        padding: 50px 100px;
+    }
+}
+
+@media(max-width:782px){
+    .mainCont{
+        padding: 50px 0px;
+        
+        
+    }
+
+}  
+
+@media(max-width:582px){
+    nav {
+        /* display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; */
+
+        padding: 5px 20px;
+
+    }
+
+    .submitBtnCont{
+        width:90%
+    }
+
+    #siteName{
+        /* font-size: 3.2rem; */
+        margin-left: 0;
+
+    }
+
+    .navBarBtnCont {
+
+        /* position:unset; */
+        /* width: 60%; */
+        right: 5px;
+       
+    }
+    .navBarBtn{
+        float: right;
+        margin: 5px;
+    }
+    .mainCont{
+        padding: 50px 0px;
+    }
+
+    .queCont{
+        width:95%;
+        padding: 20px 20px;
+    }
+
+    .addAnsCont {
+        /* max-width: 20%; */
+        margin-left: 10px;
+
+    }
+
+    .confirmation{
+        padding:20px 70px;
+        padding-bottom: 40px;
+        
+    }
+
+}
+
+@media(max-width:360px){
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+
+        padding: 5px 8px;
+
+    }
+    .navBarBtnCont {
+
+        position:unset;
+        width: 240px;
+        right: 5px;
+       
+    }
+    
+
+    .addQueCont{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin:auto;
+        margin-bottom: 20px;
+    }
+    .addAnsCont{
+        margin-top: 20px;
+        margin-left:0 ;
+        min-width: none;
+        max-width: none;
+        width: 100%;
+    }
+    .confirmation{
+        padding:20px 40px;
+        padding-bottom: 40px;
+        
+    }
+
+    
+
+}
