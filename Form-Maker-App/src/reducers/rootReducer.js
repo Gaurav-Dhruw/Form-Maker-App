@@ -6,6 +6,7 @@ import {resQueUpdate} from "./resQueUpdate";
 import {usersResponses}from './usersResponses';
 import {formUserData} from "./formUserData"
 import {resLoadingHandler} from "./resLoadingHandler"
+import {reviewHandler} from "./reviewHandler"
 
 
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     resQueUpdate,
     usersResponses,
     formUserData,
-    resLoadingHandler
+    resLoadingHandler,
+    reviewHandler
 });
 
 export default rootReducer;

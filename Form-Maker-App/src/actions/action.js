@@ -76,6 +76,15 @@ export const formUserUpdate=(material)=>{
 }
 }
 
+export const reviewStatusUpdate=(status)=>{
+
+  // console.log('material', material)
+  return{
+    type:status.type,
+    payload:status.payload
+}
+}
+
 
 export const resLoadingAction=(data)=>{
   return{

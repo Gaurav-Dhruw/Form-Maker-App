@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "../css/popupStyle.css";
-import { formIdAction,resLoadingAction } from "../actions/action";
+import { formIdAction, resLoadingAction } from "../actions/action";
 import { connect } from "react-redux";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ import axios from "axios";
 class Confirmation extends React.Component {
   constructor(props) {
     super(props)
-  
+
     this.sendFormDetails = this.sendFormDetails.bind(this);
     this.handleGeneration = this.handleGeneration.bind(this)
   }
@@ -45,11 +45,11 @@ class Confirmation extends React.Component {
 
 
           this.props.dispatchResLoadingStatus({
-            type:"resLoadingChange",
-            
-            payload:{formID: this.props.formIDs[this.props.formID].urlKey, resLoadingStatus:true}
+            type: "resLoadingChange",
+
+            payload: { formID: this.props.formIDs[this.props.formID].urlKey, resLoadingStatus: true }
           })
-          
+
 
           this.props.dispatchGenStatus({
             type: 'genConfirmation',
@@ -61,7 +61,7 @@ class Confirmation extends React.Component {
           this.props.dispatchGenStatus({
             type: 'genConfirmation',
             formID: this.props.formID,
-            payload: { failureStatus: true,loadingStatus:false }
+            payload: { failureStatus: true, loadingStatus: false }
 
           })
 
@@ -100,12 +100,12 @@ class Confirmation extends React.Component {
 
 
               this.props.dispatchResLoadingStatus({
-                type:"resLoadingChange",
-                
-                payload:{formID: this.props.formIDs[this.props.formID].urlKey, resLoadingStatus:true}
+                type: "resLoadingChange",
+
+                payload: { formID: this.props.formIDs[this.props.formID].urlKey, resLoadingStatus: true }
               })
 
-             
+
 
               this.props.dispatchGenStatus({
                 type: 'genConfirmation',
@@ -118,7 +118,7 @@ class Confirmation extends React.Component {
               this.props.dispatchGenStatus({
                 type: 'genConfirmation',
                 formID: this.props.formID,
-                payload: { failureStatus: true ,loadingStatus:false}
+                payload: { failureStatus: true, loadingStatus: false }
 
               })
 
@@ -126,26 +126,26 @@ class Confirmation extends React.Component {
 
 
 
-           
 
-            }).catch(err => {
 
-              this.props.dispatchGenStatus({
-                type: 'genConfirmation',
-                formID: this.props.formID,
-                payload: { failureStatus: true ,loadingStatus:false}
+          }).catch(err => {
 
-              })
+            this.props.dispatchGenStatus({
+              type: 'genConfirmation',
+              formID: this.props.formID,
+              payload: { failureStatus: true, loadingStatus: false }
 
             })
-          
-      }   
+
+          })
+
+      }
 
     })
 
   }
 
- 
+
   handleGeneration() {
     this.props.dispatchGenStatus({
       type: 'genConfirmation',
@@ -168,9 +168,9 @@ class Confirmation extends React.Component {
             <p className="textCont">Once you generate the form, it cannot be edited later.</p>
             <div className="confGenBtnCont">
 
-              {loadingStatus ?<div class="spinner-border text-primary" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div> : <Fragment>{failureStatus ? <span class="cntrlPanelBtns generateBtn genBtnActive" onClick={() => { this.handleGeneration(); this.sendFormDetails() }}>Try Again</span> :<span class="cntrlPanelBtns generateBtn genBtnActive" onClick={() => { this.handleGeneration(); this.sendFormDetails() }}>Generate Anyway</span> }</Fragment>}
+              {loadingStatus ? <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div> : <Fragment>{failureStatus ? <span class="cntrlPanelBtns generateBtn genBtnActive" onClick={() => { this.handleGeneration(); this.sendFormDetails() }}>Try Again</span> : <span class="cntrlPanelBtns generateBtn genBtnActive" onClick={() => { this.handleGeneration(); this.sendFormDetails() }}>Confirm</span>}</Fragment>}
             </div>
           </div>
         </div> : null
@@ -198,7 +198,7 @@ const mapDispatchtoProps = (dispatch) => {
   return {
     dispatchGenStatus: (para) => dispatch(formIdAction(para)),
     dispatchFormTitle: (para) => dispatch(formIdAction(para)),
-    dispatchResLoadingStatus: (para)=> dispatch(resLoadingAction(para))
+    dispatchResLoadingStatus: (para) => dispatch(resLoadingAction(para))
 
 
   }

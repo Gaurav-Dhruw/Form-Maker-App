@@ -6,7 +6,7 @@ import rootReducer from '../reducers/rootReducer.js';
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["queTypeUpdater", "queHandler", "formHandler","resQueUpdate","usersResponses","formUserData","resLoadingHandler"]
+    whitelist: ["queTypeUpdater", "queHandler", "formHandler","resQueUpdate","usersResponses","formUserData","resLoadingHandler","reviewHandler"]
 };
 
 let pReducer = persistReducer(persistConfig, rootReducer);

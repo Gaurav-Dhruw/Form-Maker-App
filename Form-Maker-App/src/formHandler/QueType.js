@@ -45,8 +45,11 @@ class QueType extends React.Component {
         questionNo: array + 1
       }
     })
-    // document.querySelector("body").scrollIntoView(false);
-    // window.scrollTo(0,document.querySelector(".allQueCont").scrollHeight);
+    setTimeout(()=>{
+
+      document.querySelector("body").scrollIntoView(false);
+      window.scrollTo(0,document.querySelector(".allQueCont").scrollHeight);
+    },10)
 
 
   }

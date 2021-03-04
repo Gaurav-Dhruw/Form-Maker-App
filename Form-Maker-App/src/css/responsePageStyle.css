@@ -9,6 +9,7 @@ hr{
 
 }
 
+
 .resCountCont{
     /* min-height: 15vh; */
     display: flex;
@@ -86,7 +87,7 @@ hr{
 
 .resName{
     user-select: text;
-    width: 75%;
+    width: 85%;
     text-align: unset;
 }
 .resBrief{
@@ -100,6 +101,7 @@ hr{
     float: right;
     cursor: default;
     min-width: 125px;
+    width:15%
 }
 .statusCont:hover{
     
@@ -130,8 +132,13 @@ hr{
 
 .resQue{
     padding: 0 5px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     border-bottom: 1px rgba(128, 128, 128, 0.404) solid;
+}
+.resAdditionalInfo{
+    padding: 0 5px;
+    margin-bottom: 7px;
+    
 }
 
 .resAns{

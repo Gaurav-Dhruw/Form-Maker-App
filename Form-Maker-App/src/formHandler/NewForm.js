@@ -3,7 +3,7 @@ import QueTemplate from "./QueTemplate";
 import QueType from "./QueType";
 import ControlPanel from "./ControlPanel";
 import { connect } from "react-redux";
-import { formIdAction, queType } from "../actions/action";
+import { formIdAction, queType ,reviewStatusUpdate} from "../actions/action";
 import "../css/queStyle.css";
 import axios from "axios";
 
@@ -86,6 +86,14 @@ class NewForm extends React.Component {
         formID: this.props.formID,
         payload: { homePageStatus: false }
 
+      })
+
+      this.props.dispatchReviewStatus({
+        type:"addFormUrlKey",
+        payload:{
+          formUrlKey:urlKey,
+          
+        }
       })
 
     }).catch(err=>{
@@ -224,6 +232,7 @@ const mapDispatchtoProps = (dispatch) => {
   return {
     dispatchGenStatus: (para) => dispatch(formIdAction(para)),
     dispatchFormIDs: (para) => dispatch(formIdAction(para)),
+    dispatchReviewStatus:(para)=>dispatch(reviewStatusUpdate(para)),
 
     dispatchFormTitle: (para) => dispatch(formIdAction(para))
   }

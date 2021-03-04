@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import "../css/responsePageStyle.css";
-import { formUserUpdate, usersResponsed, resLoadingAction } from "../actions/action"
+import { formUserUpdate, usersResponsed, resLoadingAction, formIdAction ,reviewStatusUpdate} from "../actions/action"
 
 
 
@@ -16,6 +16,7 @@ class Response extends React.Component {
 
         this.state = { status: "Not Reviewed" };
         this.handleStatus = this.handleStatus.bind(this);
+        this.closeForm= this.closeForm.bind(this);
 
         this.props.dispatchResLoadingStatus({
             type: "resLoadingChange",
@@ -31,12 +32,82 @@ class Response extends React.Component {
     //         document.getElementById("genformBtn").style.visibility="none";
     // }
 
+    closeForm(event){
+        console.log('event.target', event.target.checked);
+
+        let formStatus= !event.target.checked;
+        console.log('formSStatus', typeof formStatus);
+        
 
 
-    handleStatus() {
-        this.setState({
-            status: "Reviewed"
+        axios.put(`https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/${this.props.formIDs[this.props.formID].urlKey}/`, {
+            form_name:this.props.formIDs[this.props.formID].formTitle,
+            form_status:formStatus
+      
+          }).then(res=>{
+              console.log('res.data', res.data)
+
+            this.props.dispatchCloseForm({
+                type: 'genConfirmation',
+                formID: this.props.formID,
+                payload: { formStatus}
+    
+              })
+
+
+          }).catch(err=>{
+              console.log('err.message', err.message)
+
+            // this.props.dispatchCloseForm({
+            //     type: 'genConfirmation',
+            //     formID: this.props.formID,
+            //     payload: { formStatus:!formStatus}
+    
+            //   })
+
+
+          });
+
+
+        //   this.props.dispatchCloseForm({
+        //     type: 'genConfirmation',
+        //     formID: this.props.formID,
+        //     payload: { formStatus}
+
+        //   })
+
+        
+       
+
+        
+
+
+    }
+
+
+
+    handleStatus(event) {
+
+        let reviewStatus= event.target.innerText;
+        let userID= event.target.id;
+        console.log(reviewStatus,userID);
+
+        if(reviewStatus==="Not Reviewed"){
+            reviewStatus="Reviewed";
+        }
+        else{
+            reviewStatus="Not Reviewed";
+        }
+
+
+        this.props.dispatchReviewStatus({
+            type:"updateReviewStatus",
+            payload:{formUrlKey:this.props.formIDs[this.props.formID].urlKey,
+
+                userID,
+                reviewStatus}
         })
+        
     }
     componentWillUnmount() {
         document.getElementById("responseBtn").className = "cntrlPanelBtns link";
@@ -68,6 +139,9 @@ class Response extends React.Component {
             let users = res.data;
 
 
+           
+
+
             //             answer_given: "nothing re"
             // form_id: "e5717934-339c-40de-bb4c-6241f126edd2"
             // id: 2
@@ -84,7 +158,15 @@ class Response extends React.Component {
 
                     if (this.props.formIDs[this.props.formID].urlKey === user.form_id) {
 
+                        if(this.props.reviewHandler[user.form_id][user.submitted_user_id]===undefined){
 
+                            this.props.dispatchReviewStatus({
+                                type:"addReviewStatus",
+                                payload:{formUrlKey:user.form_id,
+                                userID:user.submitted_user_id,
+                            reviewStatus:"Not Reviewed"}
+                            })
+                        }
 
 
                         let resDetails = {};
@@ -100,6 +182,8 @@ class Response extends React.Component {
                             }
 
                         })
+
+                        
 
                         if (resDetails !== {}) {
 
@@ -130,7 +214,8 @@ class Response extends React.Component {
                                     userData: {
                                         email: user.email,
                                         name_user: user.name_user,
-                                        phone_no: user.phone_no
+                                        phone_no: user.phone_no,
+                                      
                                     }
                                 }
 
@@ -210,7 +295,7 @@ class Response extends React.Component {
 
         else {
 
-
+            let formStatus= !this.props.formIDs[this.props.formID].formStatus;
             if (this.props.formUserData[this.props.formIDs[this.props.formID].urlKey] === undefined) {
                 return (<div className="responseMainCont">
                     <div className="resCountCont">
@@ -220,7 +305,7 @@ class Response extends React.Component {
                             <label class="form-check-label" for="flexSwitchCheckDefault">Close Form </label>
                             <div class="form-check form-switch toggleSwitch">
 
-                                <input class="form-check-input shadow-none" type="checkbox" id="flexSwitchCheckDefault" />
+                                <input onChange={this.closeForm} checked={formStatus}   class="form-check-input shadow-none" type="checkbox" id="flexSwitchCheckDefault" />
 
                             </div>
 
@@ -254,56 +339,126 @@ class Response extends React.Component {
                 let responses = Object.keys(usersData).map((singleUser, ind) => {
 
                     console.warn(typeof singleUser);
-                    let targetId = singleUser;
+                    let targetId = `A${ind}`;
                     console.log('targetId', targetId)
-                    ind=`A${ind}`
-
+                   
+                    let reviewStatus=this.props.reviewHandler[this.props.formIDs[this.props.formID].urlKey][singleUser].reviewStatus;
 
                     return (
 
                         <div className="resBrief" key={singleUser}>
                             <div className="resNo">
-                                <div class="btn btn-light shadow-none resName" type="button" data-bs-toggle="collapse" data-bs-target={`#${ind}`} aria-expanded="false" aria-controls={ind}>
+                                <div class="btn btn-light shadow-none resName" type="button" data-bs-toggle="collapse" data-bs-target={`#${targetId}`} aria-expanded="false" aria-controls={targetId}>
                                     {usersData[singleUser].name_user}</div>
-                                <div className="btn statusCont" onClick={this.handleStatus}>{this.state.status}</div>
+                                   
+                                    {reviewStatus==="Reviewed"?
+                                    
+                                    <div className="btn statusCont shadow-none" id={singleUser} onClick={this.handleStatus} style={{color:"#017bfe"}}>{reviewStatus}</div>
+                                    
+                                    :
+                                    
+                                    <div className="btn statusCont shadow-none" id={singleUser} onClick={this.handleStatus}>{reviewStatus}</div>}
+                                
                             </div>
-                            <div class="collapse " id={ind}>
+                            <div class="collapse " id={targetId}>
                                 <div class="card card-body resQuesCont">
 
                                     <div className="resQueAnsCont">
+                                        {usersData[singleUser].email===""?<div className="resAdditionalInfo" >email: &nbsp;<span style={{color:"red"}}>NA</span></div>:<div className="resAdditionalInfo">email: &nbsp;{usersData[singleUser].email}</div>}
 
-                                        <div className="resQue">email: {usersData[singleUser].email}</div>
-                                        <div className="resQue">Phone no: {usersData[singleUser].phone_no}</div>
+                                        {usersData[singleUser].phone_no===""?<div className="resAdditionalInfo" >Phone no: &nbsp;<span style={{color:"red"}}>NA</span></div>:<div className="resAdditionalInfo">Phone no: &nbsp;{usersData[singleUser].phone_no}</div>}
+                                        
                                     </div>
 
 
                                     {Object.keys(currentFormQues).map((que, index) => {
 
 
-                                        return (<div className="resQueAnsCont" key={que}>
+                                        return (
+                                        
+                                        <div className="resQueAnsCont" key={que}>
 
 
 
                                             <div className="resQue">{currentFormQues[que].question}</div>
                                             {currentFormQues[que].queType === "text" ?
-                                                <div className="resAns">{currentFormResp[singleUser][que].answer_given}</div> : <Fragment>
+                                            <Fragment>
+                                                {currentFormResp[singleUser][que].answer_given===""?<div className="resAns" style={{color:"red"}}>Not Answered</div>:<div className="resAns">{currentFormResp[singleUser][que].answer_given}</div>}
+                                            </Fragment>
+                                                : <Fragment>
 
                                                     {Object.keys(currentFormQues[que].options).map((op, index) => {
 
-                                                        return (<Fragment>
-                                                            {currentFormResp[singleUser][que].options_answer_selected.map(ans => {
+                                                        console.log('INside Opstions From Question',index)
+
+                                                        if(currentFormResp[singleUser][que].options_answer_selected===null){
 
 
-                                                                return (<Fragment>
-                                                                    {currentFormQues[que].options[op] === ans ? <div className="resAns" key={index}>{currentFormQues[que].options[op]} ANSWER</div> : <div className="resAns" key={index}>{currentFormQues[que].options[op]}</div>}
-                                                                </Fragment>
-                                                                )
-                                                            })
+                                                            return (<Fragment>
+                                                                <div className="resAns form-check" key={index}> 
+                                                                <input class="form-check-input" type={currentFormQues[que].queType}  disabled style={{opacity:1}}/><div style={{marginLeft:5}}>
 
-                                                            } </Fragment>)
+                                                                {currentFormQues[que].options[op] }</div>
+                                                                </div> 
+                                                            </Fragment>
 
-                                                    })}
 
+                                                            
+                                                            )
+                                                        }
+
+
+                                                        else{
+                                                            let array=currentFormResp[singleUser][que].options_answer_selected;
+
+                                                            for (let index = 0; index < array.length; index++) {
+
+                                                                console.log('INside Opstions From Reseponsees',index)
+                                                                
+                                                                
+                                                                if(currentFormQues[que].options[op] === array[index]){
+
+                                                                    return (
+                                                                        <div className="resAns form-check" key={index}> <input class="form-check-input" type={currentFormQues[que].queType}  checked disabled style={{opacity:1}}/><div style={{marginLeft:5}}>
+
+                                                                        {currentFormQues[que].options[op]}</div></div> 
+                                                                        
+                                                                    ) 
+                                                                   
+    
+    
+                                                                   }
+    
+                                                                   if(array.length-1===index){
+    
+                                                                    return(
+                                                                        <div className="resAns form-check" key={index}><input class="form-check-input" type={currentFormQues[que].queType}   disabled
+                                                                        style={{opacity:1}}/>
+                                                                        <div style={{marginLeft:5}}>
+
+                                                                        {currentFormQues[que].options[op]}</div>
+                                                                        </div>
+                                                                    )
+    
+    
+    
+    
+                                                                   }
+                                                                
+                                                            }
+
+                                                            
+                                                            
+
+                                                                
+
+                                                     
+                                                      
+                                                            
+                                                        }
+                                                            
+                                                        })}
+                                                        
 
                                                 </Fragment>}
 
@@ -319,7 +474,7 @@ class Response extends React.Component {
                     )
                 })
 
-
+                let formStatus= ! this.props.formIDs[this.props.formID].formStatus;
 
                 return (
                     <div className="responseMainCont">
@@ -330,7 +485,7 @@ class Response extends React.Component {
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Close Form </label>
                                 <div class="form-check form-switch toggleSwitch">
 
-                                    <input class="form-check-input shadow-none" type="checkbox" id="flexSwitchCheckDefault" />
+                                    <input onChange={this.closeForm} checked={formStatus}class="form-check-input shadow-none" type="checkbox" id="formClosingSwitch" />
 
                                 </div>
 
@@ -363,7 +518,8 @@ const mapStatetoProps = (state) => {
         Questions: state.resQueUpdate,
         usersResponses: state.usersResponses,
         formUserData: state.formUserData,
-        resLoadingHandler: state.resLoadingHandler
+        resLoadingHandler: state.resLoadingHandler,
+        reviewHandler: state.reviewHandler
         // users: state.
     }
 }
@@ -371,6 +527,8 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchtoProps = (dispatch) => {
     return {
+        dispatchReviewStatus:(para)=>dispatch(reviewStatusUpdate(para)),
+        dispatchCloseForm:(para)=> dispatch(formIdAction(para)),
         dispatchUsersResponses: (para) => dispatch(usersResponsed(para)),
         dispatchFormUserData: (para) => dispatch(formUserUpdate(para)),
         dispatchResLoadingStatus: (para) => dispatch(resLoadingAction(para))

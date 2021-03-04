@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import NewForm from "../formHandler/NewForm.js";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { formIdAction, queAction } from "../actions/action.js";
+import { formIdAction, queAction, reviewStatusUpdate } from "../actions/action.js";
 import { connect } from 'react-redux';
 import axios from "axios";
 import Navbar from "./Navbar.js";
@@ -30,25 +30,36 @@ class App extends React.Component {
     axios.post("https://form-maker-backend.herokuapp.com/form_creation_api/formcreated/", {
       form_name: this.props.formIDs[formIdsKey[formIdsKey.length - 1]].formTitle
     }).then(res => {
-      console.log('res.status', res)
+      console.log('res.status', res.data)
+
 
       console.warn("FORM CREATED IN DB")
       urlKey = res.data.url_key;
+      
       this.props.dispatchFormIDs({
         type: "addNewForm",
         formID: newIDs - 1,
         payload: {
 
 
-          urlKey
+          urlKey,
         }
       });
 
       this.props.dispatchGenStatus({
         type: 'genConfirmation',
         formID: newIDs - 1,
-        payload: { homePageStatus: false }
+        payload: { homePageStatus: false,          formStatus:res.data.form_status
+        }
 
+      })
+
+      this.props.dispatchReviewStatus({
+        type:"addFormUrlKey",
+        payload:{
+          formUrlKey:urlKey,
+          
+        }
       })
 
     }).catch(err=>{
@@ -206,7 +217,7 @@ const mapStatetoProps = (state) => {
 const mapDispatchtoProps = (dispatch) => {
   return {
     dispatchGenStatus: (para) => dispatch(formIdAction(para)),
-
+    dispatchReviewStatus:(para)=>dispatch(reviewStatusUpdate(para)),
     dispatchFormIDs: (para) => dispatch(formIdAction(para)),
     dispatchPreFormData: (para) => dispatch(queAction(para))
 
