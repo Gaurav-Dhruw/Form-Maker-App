@@ -5,7 +5,7 @@ One can also close the submission for the form if thats what one wants.
 
 The Form-Création is created using React as front-end and Django as backend. The Database used is Postgres. The web-app is deployed at our endearing Heroku.
 
-Checkout the App at _______________________
+Checkout the App at https://form-control-app.herokuapp.com/
 
 Us (for this project 🤪): 
 Gaurav Dhruw: React developer
