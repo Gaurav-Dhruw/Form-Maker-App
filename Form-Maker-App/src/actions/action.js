@@ -3,7 +3,6 @@ export const ADD_RADIO = "radio";
 export const ADD_CHECKBOX = "checkbox";
 
 export const queType = (formQue) => {
-  console.log('queType action', formQue)
   return {
     type: formQue.type,
     formID: formQue.payload.formID,
@@ -13,7 +12,6 @@ export const queType = (formQue) => {
 
 
 export const queAction = (queInfo) => {
-  console.log('queInfo', queInfo)
   return {
     type: queInfo.type,
     formID: queInfo.payload.formID,
@@ -30,6 +28,7 @@ export const formIdAction = (ID) => {
   console.log('ID', ID)
   return {
     type: ID.type,
+    formID:ID.formID,
     data: ID.payload
   }
 
@@ -46,7 +45,51 @@ export const removeQue = (remove) => {
 }
 
 
-// export const filledForm = (filled) => {
-//   type:
+export const resQueDetails = (data) => {
+  console.log('data', data)
+  return {
+     type:data.type,
+  payload:data.payload
 
-// }
+  }
+
+}
+
+export const usersResponsed=(userRes)=>{
+  console.log('userRes', userRes)
+
+  return{
+    type:userRes.type,
+    payload: userRes.payload
+  
+  }
+
+}
+
+
+export const formUserUpdate=(material)=>{
+
+  console.log('material', material)
+  return{
+    type:material.type,
+    payload:material.payload
+}
+}
+
+export const reviewStatusUpdate=(status)=>{
+
+  // console.log('material', material)
+  return{
+    type:status.type,
+    payload:status.payload
+}
+}
+
+
+export const resLoadingAction=(data)=>{
+  return{
+    type:data.type,
+   
+    payload:data.payload
+  }
+}

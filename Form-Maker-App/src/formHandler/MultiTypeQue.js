@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { queAction } from "../actions/action.js";
 
-let question = "Question", opId, options, noOfOps = 1;
+let  opId, options, noOfOps = 1;
 class MultiTypeQue extends React.Component {
     constructor(props) {
         super(props)
@@ -14,8 +14,8 @@ class MultiTypeQue extends React.Component {
 
     handleQueInfo(event) {
 
-        question = event.target.value;
-        console.log('placeholder', question)
+        let question = event.target.value;
+     
 
 
 
@@ -48,6 +48,8 @@ class MultiTypeQue extends React.Component {
     handleOptionInfo(event) {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
         let optionsKey = Object.keys(optionsObj);
+        let question= this.props.queHandler[this.props.formID][this.props.queNo].question;
+
 
 
 
@@ -78,10 +80,12 @@ class MultiTypeQue extends React.Component {
 
     addOption() {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
+        let question = this.props.queHandler[this.props.formID][this.props.queNo].question;
+
+    
         let optionsKey = Object.keys(optionsObj);
         optionsKey = parseInt(optionsKey[optionsKey.length - 1])
-        console.log('optionsKey', optionsKey)
+      
 
 
 
@@ -112,7 +116,8 @@ class MultiTypeQue extends React.Component {
 
     removeOption(event) {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
+        let question = this.props.queHandler[this.props.formID][this.props.queNo].question;
+
         let optionsKey = Object.keys(optionsObj);
 
         if (optionsKey.length !== 1) {
@@ -149,16 +154,14 @@ class MultiTypeQue extends React.Component {
 
         // noOfOps = this.props.queHandler[this.props.formID][this.props.queNo].noOfOps
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
         let optionsKey = Object.keys(optionsObj);
-        console.log('optionsKey', optionsKey)
 
 
         options = optionsKey.map((data, index) => {
             return <Fragment>
                 <div key={data} id={data} class="form-check optionsCont">
                     <input class="form-check-input optionsIcon" type="checkbox" value="" />
-                    <input type="text" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn">&#x2715;</button>
+                    <input type="text" defaultValue={optionsObj[data]} id={data} onChange={this.handleOptionInfo} className="optionInput"></input><button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn">&#x2715;</button>
 
                     {/* <input type="checkbox" name="option" ></input> */}
                 </div>
@@ -169,9 +172,8 @@ class MultiTypeQue extends React.Component {
         })
         let queData = this.props.queHandler[this.props.formID][this.props.queNo];
 
-        console.log('queData', queData)
         return (<Fragment>
-            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
+            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onChange={this.handleQueInfo} defaultValue={queData.question}></input>
             </div>
 
 
@@ -185,7 +187,6 @@ class MultiTypeQue extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-    console.log("state inside ParaTYpeQes", state)
     return {
         queHandler: state.queHandler
     }

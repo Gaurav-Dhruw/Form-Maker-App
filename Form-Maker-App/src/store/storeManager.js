@@ -6,12 +6,11 @@ import rootReducer from '../reducers/rootReducer.js';
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["queTypeUpdater", "queHandler", "formHandler"]
+    whitelist: ["queTypeUpdater", "queHandler", "formHandler","resQueUpdate","usersResponses","formUserData","resLoadingHandler","reviewHandler"]
 };
 
 let pReducer = persistReducer(persistConfig, rootReducer);
 
 let store = createStore(pReducer);
 let persistor = persistStore(store);
-store.subscribe(() => console.log(store.getState()));
 export { store, persistor };

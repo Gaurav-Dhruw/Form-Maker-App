@@ -13,7 +13,6 @@ class ParaTypeQue extends React.Component {
     }
     handleInfo(event) {
         question = event.target.value;
-        console.log('placeholder', question)
         let queInfo = {
             type: "para",
             payload: {
@@ -42,7 +41,6 @@ class ParaTypeQue extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-    console.log("state inside ParaTYpeQes", state)
     return {
         queHandler: state.queHandler
     }

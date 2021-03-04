@@ -68,6 +68,8 @@
   height: 17px;
   min-width: 17px;
   min-height: 17px;
+  position: relative;
+  top: -2px;
 }
 
 .queCont {
@@ -109,7 +111,7 @@
 .optionsCont {
   height: 30px;
   margin: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 
   display: flex;
   align-items: center;
@@ -126,7 +128,7 @@
   width: 100%;
 
   height: 25px;
-  padding: 15px;
+  padding: 13px 10px;
   outline: none;
 
   font-size: 1rem;

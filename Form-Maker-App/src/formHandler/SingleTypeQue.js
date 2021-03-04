@@ -4,7 +4,7 @@ import { queAction } from "../actions/action.js";
 
 
 
-let question = "Question", opId, options, noOfOps = 1;
+let  opId, options, noOfOps = 1;
 class SingleTypeQue extends React.Component {
     constructor(props) {
         super(props)
@@ -16,11 +16,10 @@ class SingleTypeQue extends React.Component {
 
     handleQueInfo(event) {
 
-        question = event.target.value;
-        console.log('placeholder', question)
+        let question = event.target.value;
 
 
-
+        // let question = "Question";
 
         let queInfo = {
             type: "single",
@@ -50,7 +49,7 @@ class SingleTypeQue extends React.Component {
     handleOptionInfo(event) {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
         let optionsKey = Object.keys(optionsObj);
-
+        let question= this.props.queHandler[this.props.formID][this.props.queNo].question;
 
 
         optionsObj[event.target.id] = event.target.value;
@@ -80,10 +79,10 @@ class SingleTypeQue extends React.Component {
 
     addOption() {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
+        let question = this.props.queHandler[this.props.formID][this.props.queNo].question;
+
         let optionsKey = Object.keys(optionsObj);
         optionsKey = parseInt(optionsKey[optionsKey.length - 1])
-        console.log('optionsKey', optionsKey)
 
 
 
@@ -114,7 +113,8 @@ class SingleTypeQue extends React.Component {
 
     removeOption(event) {
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
+        let question = this.props.queHandler[this.props.formID][this.props.queNo].question;
+
         let optionsKey = Object.keys(optionsObj);
 
         if (optionsKey.length !== 1) {
@@ -149,11 +149,8 @@ class SingleTypeQue extends React.Component {
     }
     render() {
 
-        // noOfOps = this.props.queHandler[this.props.formID][this.props.queNo].noOfOps
         let optionsObj = this.props.queHandler[this.props.formID][this.props.queNo].options;
-        console.log('optionsObj', optionsObj)
         let optionsKey = Object.keys(optionsObj);
-        console.log('optionsKey', optionsKey)
 
 
         options = optionsKey.map((data, index) => {
@@ -163,7 +160,7 @@ class SingleTypeQue extends React.Component {
                 <div class="form-check optionsCont" key={data} id={data}>
                     <input class="form-check-input optionsIcon" type="radio" name="flexRadioDefault" />
 
-                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onBlur={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn ">&#x2715;</button>
+                    <input type="text" className="optionInput" defaultValue={optionsObj[data]} id={data} onChange={this.handleOptionInfo}></input> <button onClick={this.removeOption} id={data} class="btn shadow-none optionCancelBtn ">&#x2715;</button>
 
                 </div>
 
@@ -176,9 +173,8 @@ class SingleTypeQue extends React.Component {
         })
         let queData = this.props.queHandler[this.props.formID][this.props.queNo];
 
-        console.log('queData', queData)
         return (<Fragment>
-            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onBlur={this.handleQueInfo} defaultValue={queData.question}></input>
+            <div className="questionCont">Q. <input type="text" className="queInput" name='question' onChange={this.handleQueInfo} defaultValue={queData.question}></input>
             </div>
 
 
@@ -192,7 +188,6 @@ class SingleTypeQue extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-    console.log("state inside ParaTYpeQes", state)
     return {
         queHandler: state.queHandler
     }

@@ -16,7 +16,13 @@
 
 }
 
-.cntrlPanelBtns{
+.link{
+    border-bottom: transparent 3px solid;
+
+    text-decoration: none;
+    color: black;
+  }
+.cntrlPanelBtns, .sendBtn{
     text-decoration: none;
     color: black;
     margin: 0px 20px;
@@ -24,10 +30,35 @@
     cursor: pointer;
     border-radius: 3px;
     user-select: none;
+    transition: 0.2s ease all;
+
+}
+.sendBtn{
+    background-color:  #017bfe;
+    display: flex;
+    align-items: center;
+    color: white;
+    user-select: none;
+    box-shadow: grey -2px 3px 8px;
+    padding :5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 78px;
+    text-align: center;
+    transition: .2s ease all;
+   
+}
+.sendBtn:hover{
+    background-color:   #0d6efd;
+}
+
+.sendIcon{
+    font-size: 1rem;
+    padding-left:  5px;
 }
 
 
-#genformBtn{
+#genformBtn, .sendBtn{
     float:right ;
 }
 
@@ -47,20 +78,31 @@
     border-radius: 5px;
     cursor: pointer;
     min-width: 130px;
+    text-align: center;
+    transition: .2s ease all;
   }
-  
-  .generateBtn:hover{
-    background-color: rgb(136, 202, 37);
-  
-  }
+
+  /* .generateBtn:hover{
+      
+    } */
+
+    .genBtnActive:hover{
+      background-color: rgb(136, 202, 37);
+
+
+    }
+    .disabled, .disabled:hover{
+        background-color:  rgb(136, 202, 37);
+        cursor: default;
+        opacity: .6;
+        /* border: 1px solid grey; */
+        
+      }
   .pairCont{
       display: inline-block;
   }
 
-  .pairCont a{
-    text-decoration: none;
-    color: black;
-  }
+
   .pairCont a:hover, .pairCont:active{
     text-decoration: none;
     color: black;
@@ -91,7 +133,7 @@
     }
     
 
-.cntrlPanelBtns {
+.cntrlPanelBtns,.sendBtn {
     margin:0 5px;
 }
 
