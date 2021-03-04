@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '=#h=car(^t6#9sjz%4gph0id(32n%9kji0@cp+6(_84v6#bnl$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -89,23 +89,23 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Form-Maker-3',
-        'USER': 'postgres',
-        'PASSWORD': 'ManishPort',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'd24b6q2elt58an',
-    #     'USER': 'mpzlwgoccyinbp',
-    #     'PASSWORD': '1830494f7bbf416a21aa0b20a2ef34a8b56f72cd9b95c1757cc6a556d5c0ff81',
-    #     'HOST': 'ec2-3-232-163-23.compute-1.amazonaws.com',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'Form-Maker-3',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'ManishPort',
+    #     'HOST': 'localhost',
+    #     'PORT': '5433', 
     # }
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ddn3p6bambl0es',
+        'USER': 'lugolhhowcmcim',
+        'PASSWORD': '0fba178519db1008019a49638fe9713b5fa7410a4220ea75126b4d2a4faeaf9a',
+        'HOST': 'ec2-34-192-58-41.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
 }
 # postgres://USER:@:/NAME
 
@@ -160,7 +160,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    '/var/www/static/',
+    # '/var/www/static/',
 ]
 
 
