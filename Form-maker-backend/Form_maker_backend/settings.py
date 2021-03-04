@@ -166,6 +166,7 @@ STATICFILES_DIRS = [
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"http://localhost:3000/*",
+    r"https://form-control-app.herokuapp.com/*"
 ]
 
 
